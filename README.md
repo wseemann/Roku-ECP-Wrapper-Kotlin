@@ -7,8 +7,9 @@ Overview
 Jaku is a Java wrapper/client for the [Roku External Control API](https://sdkdocs.roku.com/display/sdkdoc/External+Control+API/).
 
 Key Features:
+--------
 
-It includes helper functions to do:
+Jaku includes helper functions to:
 
 #### Query
 * List all channels and active channels
@@ -26,7 +27,7 @@ Install
 --------
 
 TBA
-```
+
 
 Usage
 ------------
