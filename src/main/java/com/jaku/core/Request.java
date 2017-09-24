@@ -12,5 +12,5 @@ public abstract class Request {
 		this.body = body;
 	}
 	
-	public abstract String send() throws IOException;	
+	public abstract Response send() throws IOException;	
 }

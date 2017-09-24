@@ -24,26 +24,28 @@ public class JakuRequest {
 		
 		if (jakuRequestData.getMethod().equalsIgnoreCase("GET")) {
 			request = new GETRequest(url);
-		} else if(jakuRequestData.getMethod().equalsIgnoreCase("POST")) {
+		} else if (jakuRequestData.getMethod().equalsIgnoreCase("POST")) {
 			request = new POSTRequest(url, "");
-		} else {
+		} else if (jakuRequestData.getMethod().equalsIgnoreCase("GETALT")) {
 			request = new GETRequest(url);
+		} else if (jakuRequestData.getMethod().equalsIgnoreCase("DISCOVERY")) {
+			request = new DiscoveryRequest(url);
 		}
 		
-		String response = request.send();
+		Response response = request.send();
 		
 		if (jakuRequestData.getMethod().equalsIgnoreCase("GETALT")) {
-			response = jakuRequestData.getEndpointUrl();
+			response.setBody(jakuRequestData.getEndpointUrl());
 		}
 		
-		System.out.println("---> reponse" + response);
+		System.out.println("Request response: " + response.getBody());
 		
 		jakuResponse = new JakuResponse(generateResponseData(response, parser));
 		
 		return jakuResponse;
 	}
 	
-	private Object generateResponseData(String response, JakuParser parser) {
+	private Object generateResponseData(Response response, JakuParser parser) {
 		if (parser == null) {
 			return null;
 		}

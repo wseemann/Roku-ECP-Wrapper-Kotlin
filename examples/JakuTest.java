@@ -47,7 +47,7 @@ public class JakuTest {
 		List<Channel> channels = QueryRequests.queryAppsRequest(ROKU_DEVICE_IP_ADDRESS);
 		
 		for (Channel channel: channels) {
-			System.out.println(channel.getId());
+			System.out.println(channel.getTitle());
 		}
 	}
 	

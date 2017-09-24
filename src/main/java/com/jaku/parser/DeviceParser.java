@@ -8,12 +8,13 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
+import com.jaku.core.Response;
 import com.jaku.model.Device;
 
 public class DeviceParser extends JakuParser {
 
 	@Override
-	public Object parse(String response) {
+	public Object parse(Response response) {
 		Device device = new Device();
 
         SAXBuilder builder = new SAXBuilder();
@@ -24,7 +25,7 @@ public class DeviceParser extends JakuParser {
 
         Document document;
         try {
-            document = (Document) builder.build(new StringReader(response));
+            document = (Document) builder.build(new StringReader(response.getBody()));
             Element rootNode = document.getRootElement();
 
             device.setUdn(rootNode.getChild("udn").getValue());

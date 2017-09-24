@@ -13,9 +13,9 @@ public class GETRequest extends Request {
 	}
 	
 	@Override
-    public String send() throws IOException {
+    public Response send() throws IOException {
     	HttpURLConnection conn = null;
-        StringBuffer response = null;
+        StringBuffer responseBody = null;
         String line;
         BufferedReader reader = null;
         
@@ -33,11 +33,11 @@ public class GETRequest extends Request {
 		    conn.connect();
 
 		    while ((line = reader.readLine()) != null) {
-		    	if (response == null) {
-		    	    response = new StringBuffer();
+		    	if (responseBody == null) {
+		    		responseBody = new StringBuffer();
 		    	}
 		    	
-		    	response = response.append(line);
+		    	responseBody = responseBody.append(line);
             }
         } finally {
         	if (reader != null) {
@@ -49,6 +49,9 @@ public class GETRequest extends Request {
         	}
         }
         
-        return response.toString();
+        Response response = new Response();
+        response.setBody(responseBody.toString());
+        
+        return response;
     }
 }
