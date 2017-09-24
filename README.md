@@ -40,7 +40,7 @@ Sample code:
 		
     for (Channel channel: channels) {
         // print the channel names
-	System.out.println(channel.getTitle());
+        System.out.println(channel.getTitle());
     }
 
 ##### Start/pause playback on a device
