@@ -34,8 +34,18 @@ Usage
 
 Sample code:
 
-    Aaa
+##### Retrieve a list of available channels on a device
 
+    List<Channel> channels = QueryRequests.queryAppsRequest(ROKU_DEVICE_IP_ADDRESS);
+		
+    for (Channel channel: channels) {
+        // print the channel names
+	System.out.println(channel.getTitle());
+    }
+
+##### Start/pause playback on a device
+
+    KeyRequests.keypressRequest(ROKU_DEVICE_IP_ADDRESS, KeypressKeyValues.PLAY);
 
 License
 ------------
