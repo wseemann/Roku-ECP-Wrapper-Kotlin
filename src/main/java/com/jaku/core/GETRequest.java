@@ -1,8 +1,9 @@
 package com.jaku.core;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -15,9 +16,10 @@ public class GETRequest extends Request {
 	@Override
     public Response send() throws IOException {
     	HttpURLConnection conn = null;
-        StringBuffer responseBody = null;
-        String line;
         BufferedReader reader = null;
+        InputStream is = null;
+        ByteArrayOutputStream os = null;
+        int len = -1;
         
         try {
         	URL uri = new URL(this.url);
@@ -29,16 +31,18 @@ public class GETRequest extends Request {
     		conn.setReadTimeout(6000);
 		    conn.setRequestMethod("GET");
 		    
-		    reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		    is = conn.getInputStream();
 		    conn.connect();
 
-		    while ((line = reader.readLine()) != null) {
-		    	if (responseBody == null) {
-		    		responseBody = new StringBuffer();
-		    	}
-		    	
-		    	responseBody = responseBody.append(line);
-            }
+	        byte[] byteChunk = new byte[4096];
+	        
+	        while ((len = is.read(byteChunk)) > 0 ) {
+	        	if (os == null) {
+	        		os = new ByteArrayOutputStream();
+	        	}
+	        	
+	        	os.write(byteChunk, 0, len);
+	        }
         } finally {
         	if (reader != null) {
         		reader.close();
@@ -50,7 +54,7 @@ public class GETRequest extends Request {
         }
         
         Response response = new Response();
-        response.setBody(responseBody.toString());
+        response.setData(os);
         
         return response;
     }

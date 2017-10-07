@@ -1,5 +1,6 @@
 package com.jaku.parser;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -16,18 +17,18 @@ import com.jaku.model.Channel;
 public class AppsParser extends JakuParser {
 
 	@Override
-	public Object parse(Response response) {
+	public Object parse(Response response) {		
 		List<Channel> channels = new ArrayList<Channel>();
 
+		if (response == null || response.getData() == null) {
+			return channels;
+		}
+		
         SAXBuilder builder = new SAXBuilder();
-
-        if (response == null) {
-            return channels;
-        }
 
         Document document;
         try {
-            document = (Document) builder.build(new StringReader(response.getBody()));
+            document = (Document) builder.build(new StringReader(new String(((ByteArrayOutputStream) response.getData()).toByteArray())));
             Element rootNode = document.getRootElement();
 
             List<Element> children = rootNode.getChildren();

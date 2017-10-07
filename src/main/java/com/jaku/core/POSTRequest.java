@@ -1,8 +1,9 @@
 package com.jaku.core;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -19,9 +20,10 @@ public class POSTRequest extends Request {
 	@Override
     public Response send() throws IOException {
     	HttpURLConnection conn = null;
-        StringBuffer responseBody =  new StringBuffer();
-        String line;
         BufferedReader reader = null;
+        InputStream is = null;
+        ByteArrayOutputStream bos = null;
+        int len = -1;
         
         try {
         	URL uri = new URL(this.url);
@@ -49,15 +51,17 @@ public class POSTRequest extends Request {
 		        os.write(out);
 		    }
 		    
-		    reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		    is = conn.getInputStream();
 		    
-		    while ((line = reader.readLine()) != null) {
-		    	if (responseBody == null) {
-		    		responseBody = new StringBuffer();
-		    	}
-		    	
-		    	responseBody = responseBody.append(line);
-            }
+		    byte[] byteChunk = new byte[4096];
+	        
+	        while ((len = is.read(byteChunk)) > 0 ) {
+	        	if (bos == null) {
+	        		bos = new ByteArrayOutputStream();
+	        	}
+	        	
+	        	bos.write(byteChunk, 0, len);
+	        }
         } finally {
         	if (reader != null) {
         		reader.close();
@@ -69,7 +73,7 @@ public class POSTRequest extends Request {
         }
         
         Response response = new Response();
-        response.setBody(responseBody.toString());
+        response.setData(bos);
         
         return response;
     }

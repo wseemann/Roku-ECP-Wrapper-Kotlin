@@ -1,6 +1,6 @@
 package com.jaku.api;
 
-import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -51,12 +51,12 @@ public class QueryRequests {
 		return (Device) response.getResponseData();
 	}
 	
-	public static final BufferedImage queryIconRequest(String url, String appId) throws IOException {
+	public static final byte[] queryIconRequest(String url, String appId) throws IOException {
 		QueryIconRequest queryActiveAppRequest = new QueryIconRequest(url, appId);
 		
 		JakuRequest request = new JakuRequest(queryActiveAppRequest, new IconParser());
 		JakuResponse response = request.send();
 		
-		return (BufferedImage) response.getResponseData();
+		return ((ByteArrayOutputStream) response.getResponseData()).toByteArray();
 	}
 }

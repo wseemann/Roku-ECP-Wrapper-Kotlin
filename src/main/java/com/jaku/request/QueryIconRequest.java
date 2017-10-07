@@ -18,6 +18,6 @@ public class QueryIconRequest extends JakuRequestData {
 	
 	@Override
 	public String getMethod() {
-		return "GETALT";
+		return "GET";
 	}
 }
