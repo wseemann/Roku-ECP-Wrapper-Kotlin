@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.jaku.core.JakuRequestData;
+import com.jaku.core.SearchTypeValues;
 
 public class SearchRequest extends JakuRequestData {
 
@@ -24,7 +25,7 @@ public class SearchRequest extends JakuRequestData {
 	
 	private String keyword;
 	private String title;
-	private String type;
+	private SearchTypeValues type;
 	private String tmsid;
 	private Integer season;
 	private Boolean showUnavailable;
@@ -35,7 +36,7 @@ public class SearchRequest extends JakuRequestData {
 	
 	private LinkedHashMap<String, Object> parameters = new LinkedHashMap<String, Object>();
 	
-	public SearchRequest(String url, String keyword, String title, String type,
+	public SearchRequest(String url, String keyword, String title, SearchTypeValues type,
 			String tmsid, Integer season, Boolean showUnavailable, Boolean matchAny,
 			Long providerId, String provider, Boolean launch) {
 		super(url);
