@@ -15,8 +15,22 @@ public enum KeypressKeyValues {
 	INFO("Info"),
 	BACKSPACE("Backspace"),
 	SEARCH("Search"),
-	ENTER("Enter");
-
+	ENTER("Enter"),
+	FIND_REMOTE("FindRemote"),
+	VOLUME_DOWN("VolumeDown"),
+	VOLUME_MUTE("VolumeMute"),
+	VOLUME_UP("VolumeUp"),
+	POWER_OFF("PowerOff"),
+	CHANNELUP("ChannelUp"),
+	CHANNELDOWN("ChannelDown"),
+	INPUTTUNER("InputTuner"),
+	INPUTHDMI1("InputHDMI1"),
+	INPUTHDMI2("InputHDMI2"),
+	INPUTHDMI3("InputHDMI3"),
+	INPUTHDMI4("InputHDMI4"),
+	INPUTAV1("InputAV1"),
+	LIT_("Lit_");
+	
 	private final String method;
 
 	KeypressKeyValues(String method) {

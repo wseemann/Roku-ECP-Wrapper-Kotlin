@@ -21,6 +21,30 @@ public class KeyRequests {
 		request.send();
 	}
 	
+	public static final void keypressRequest(String url, char literalCharacter) throws IOException {
+		KeypressRequest keypressRequest = new KeypressRequest(url, KeypressKeyValues.LIT_.getValue() + literalCharacter);
+		
+		JakuRequest request = new JakuRequest(keypressRequest, null);
+		request.send();
+	}
+	
+	public static final void keypressRequest(String url, String word) throws IOException, InterruptedException {
+		for (int i = 0; i < word.length(); i++) {
+			KeypressRequest keypressRequest = null;
+			
+			if (word.charAt(i) != ' ') {
+			    keypressRequest = new KeypressRequest(url, KeypressKeyValues.LIT_.getValue() + word.charAt(i));
+			} else {
+				keypressRequest = new KeypressRequest(url, KeypressKeyValues.LIT_.getValue() + '+');
+			}
+			    
+			JakuRequest request = new JakuRequest(keypressRequest, null);
+			request.send();
+			
+			Thread.sleep(100);
+		}
+	}
+	
 	public static final void keydownRequest(String url, KeypressKeyValues keypressKeyValue) throws IOException {
 		KeydownRequest keydownRequest = new KeydownRequest(url, keypressKeyValue.getValue());
 		
