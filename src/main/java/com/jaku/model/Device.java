@@ -24,12 +24,16 @@ public class Device {
     private String timeZone;
     private String timeZoneOffset;
     private String powerMode;
+    private String supportsSuspend;
+    private String supportsFindRemote;
+    private String supportsAudioGuide;
     private String developerEnabled;
     private String keyedDeveloperId;
     private String searchEnabled;
     private String voiceSearchEnabled;
     private String notificationsEnabled;
     private String notificationsFirstUse;
+    private String supportsPrivateListening;
     private String headphonesConnected;
     private String mHost;
 
@@ -201,6 +205,30 @@ public class Device {
     public void setPowerMode(String powerMode) {
         this.powerMode = powerMode;
     }
+    
+    public String getSupportsSuspend() {
+		return supportsSuspend;
+	}
+
+	public void setSupportsSuspend(String supportsSuspend) {
+		this.supportsSuspend = supportsSuspend;
+	}
+
+	public String getSupportsFindRemote() {
+		return supportsFindRemote;
+	}
+
+	public void setSupportsFindRemote(String supportsFindRemote) {
+		this.supportsFindRemote = supportsFindRemote;
+	}
+
+	public String getSupportsAudioGuide() {
+		return supportsAudioGuide;
+	}
+
+	public void setSupportsAudioGuide(String supportsAudioGuide) {
+		this.supportsAudioGuide = supportsAudioGuide;
+	}
 
     public String getDeveloperEnabled() {
         return developerEnabled;
@@ -250,6 +278,14 @@ public class Device {
         this.notificationsFirstUse = notificationsFirstUse;
     }
 
+	public String getSupportsPrivateListening() {
+		return supportsPrivateListening;
+	}
+
+	public void setSupportsPrivateListening(String supportsPrivateListening) {
+		this.supportsPrivateListening = supportsPrivateListening;
+	}
+    
     public String getHeadphonesConnected() {
         return headphonesConnected;
     }

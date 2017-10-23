@@ -48,12 +48,16 @@ public class DeviceParser extends JakuParser {
             device.setTimeZone(checkValue(rootNode.getChild("time-zone")));
             device.setTimeZoneOffset(checkValue(rootNode.getChild("time-zone-offset")));
             device.setPowerMode(checkValue(rootNode.getChild("power-mode")));
+            device.setSupportsSuspend(checkValue(rootNode.getChild("supports-suspend")));
+            device.setSupportsFindRemote(checkValue(rootNode.getChild("supports-find-remote")));
+            device.setSupportsAudioGuide(checkValue(rootNode.getChild("supports-audio-guide")));
             device.setDeveloperEnabled(checkValue(rootNode.getChild("developer-enabled")));
             device.setKeyedDeveloperId(checkValue(rootNode.getChild("keyed-developer-id")));
             device.setSearchEnabled(checkValue(rootNode.getChild("search-enabled")));
             device.setVoiceSearchEnabled(checkValue(rootNode.getChild("voice-search-enabled")));
             device.setNotificationsEnabled(checkValue(rootNode.getChild("notifications-enabled")));
             device.setNotificationsFirstUse(checkValue(rootNode.getChild("notifications-first-use")));
+            device.setSupportsPrivateListening(checkValue(rootNode.getChild("supports-private-listening")));
             device.setHeadphonesConnected(checkValue(rootNode.getChild("headphones-connected")));
 
         } catch (JDOMException ex) {
