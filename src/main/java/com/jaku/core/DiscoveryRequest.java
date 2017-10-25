@@ -27,7 +27,9 @@ public class DiscoveryRequest extends Request {
         deviceIpAddresses = scanForAllRokus(uri);
         	
         for (String deviceIp: deviceIpAddresses) {
-        	devices.add(QueryRequests.queryDeviceInfo("http://" + deviceIp + ":8060"));
+        	Device device = QueryRequests.queryDeviceInfo("http://" + deviceIp + ":8060");
+        	device.setHost("http://" + deviceIp + ":8060");
+        	devices.add(device);
         }
         
         Response response = new Response();
