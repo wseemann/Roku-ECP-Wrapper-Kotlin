@@ -21,6 +21,7 @@ public enum KeypressKeyValues {
 	VOLUME_MUTE("VolumeMute"),
 	VOLUME_UP("VolumeUp"),
 	POWER_OFF("PowerOff"),
+	POWER_ON("PowerOn"),
 	CHANNELUP("ChannelUp"),
 	CHANNELDOWN("ChannelDown"),
 	INPUTTUNER("InputTuner"),
