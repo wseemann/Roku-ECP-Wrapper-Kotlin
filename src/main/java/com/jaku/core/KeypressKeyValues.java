@@ -11,7 +11,7 @@ public enum KeypressKeyValues {
 	DOWN("Down"),
 	UP("Up"),
 	BACK("Back"),
-	INTANT_REPLAY("IntantReplay"),
+	INTANT_REPLAY("InstantReplay"),
 	INFO("Info"),
 	BACKSPACE("Backspace"),
 	SEARCH("Search"),
