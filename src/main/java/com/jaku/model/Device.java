@@ -35,6 +35,8 @@ public class Device {
     private String notificationsFirstUse;
     private String supportsPrivateListening;
     private String headphonesConnected;
+    private String isTv;
+    private String isStick;
     private String mHost;
 
     public Device() {
@@ -292,5 +294,21 @@ public class Device {
 
     public void setHeadphonesConnected(String headphonesConnected) {
         this.headphonesConnected = headphonesConnected;
+    }
+    
+    public String getIsTv() {
+        return isTv;
+    }
+    
+    public void setIsTv(String isTv) {
+        this.isTv = isTv;
+    }
+    
+    public String getIsStick() {
+        return isStick;
+    }
+    
+    public void setIsStick(String isStick) {
+        this.isStick = isStick;
     }
 }
