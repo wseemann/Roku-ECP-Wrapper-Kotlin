@@ -28,6 +28,6 @@ public class Jaku {
 		
         DeviceRequests.discoverDevices();
 	    //KeyRequests.keypressRequest("http://192.168.1.103:8060", KeypressKeyValues.BACK);
-        //SearchRequests.searchRequest("http://192.168.1.103:8060", "Lego", "lego", null, null, 1, false, true, null, null, true);;
+        //SearchRequests.searchRequest("http://192.168.1.103:8060", "Lego", "lego", null, null, 1, false, true, null, null, true);
 	}
 }

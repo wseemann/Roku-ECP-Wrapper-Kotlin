@@ -8,13 +8,12 @@ import com.jaku.core.JakuRequest;
 import com.jaku.core.JakuResponse;
 import com.jaku.model.Channel;
 import com.jaku.model.Device;
+import com.jaku.model.Player;
 import com.jaku.parser.AppsParser;
 import com.jaku.parser.DeviceParser;
 import com.jaku.parser.IconParser;
-import com.jaku.request.QueryActiveAppRequest;
-import com.jaku.request.QueryAppsRequest;
-import com.jaku.request.QueryDeviceInfoRequest;
-import com.jaku.request.QueryIconRequest;
+import com.jaku.parser.PlayerParser;
+import com.jaku.request.*;
 
 public class QueryRequests {
 	
@@ -58,5 +57,14 @@ public class QueryRequests {
 		JakuResponse response = request.send();
 		
 		return ((ByteArrayOutputStream) response.getResponseData()).toByteArray();
+	}
+
+	public static final Player queryMediaPlayer(String url) throws IOException {
+		QueryMediaPlayerRequest queryMediaPlayerRequest = new QueryMediaPlayerRequest(url);
+
+		JakuRequest request = new JakuRequest(queryMediaPlayerRequest, new PlayerParser());
+		JakuResponse response = request.send();
+
+		return (Player) response.getResponseData();
 	}
 }
