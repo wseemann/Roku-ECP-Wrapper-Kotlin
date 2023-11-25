@@ -1,15 +1,9 @@
 package com.jaku.parser;
 
-import com.jaku.core.Response;
-
-public final class IconParser extends JakuParser {
+public final class IconParser extends JakuParser<byte []> {
 
 	@Override
-	public Object parse(Response response) {
-		if (response == null || response.getData() == null) {
-			return null;
-		}
-		
-		return response.getData();
+	public byte [] parse(byte [] body) {
+        return body;
 	}
 }

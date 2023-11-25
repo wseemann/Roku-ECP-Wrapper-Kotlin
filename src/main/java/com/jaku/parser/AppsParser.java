@@ -1,6 +1,5 @@
 package com.jaku.parser;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -11,16 +10,15 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
-import com.jaku.core.Response;
 import com.jaku.model.Channel;
 
 public final class AppsParser extends JakuParser<List<Channel>> {
 
 	@Override
-	public List<Channel> parse(Response response) {
+	public List<Channel> parse(byte [] body) {
 		List<Channel> channels = new ArrayList<Channel>();
 
-		if (response == null || response.getData() == null) {
+		if (body == null) {
 			return channels;
 		}
 		
@@ -28,7 +26,7 @@ public final class AppsParser extends JakuParser<List<Channel>> {
 
         Document document;
         try {
-            document = builder.build(new StringReader(new String(((ByteArrayOutputStream) response.getData()).toByteArray())));
+            document = builder.build(new StringReader(new String(body)));
             Element rootNode = document.getRootElement();
 
             List<Element> children = rootNode.getChildren();

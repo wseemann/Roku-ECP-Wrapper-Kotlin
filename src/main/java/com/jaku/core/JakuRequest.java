@@ -3,8 +3,12 @@ package com.jaku.core;
 import java.io.IOException;
 
 import com.jaku.parser.JakuParser;
+import okhttp3.*;
+import okhttp3.Request;
 
 public final class JakuRequest<T> {
+
+	private static final String DISCOVERY = "DISCOVERY";
 
 	private final JakuRequestData jakuRequestData;
 	private final JakuParser<?> responseParser;
@@ -16,33 +20,46 @@ public final class JakuRequest<T> {
 	
 	public JakuResponse<T> send() throws IOException {
 		String url = jakuRequestData.getEndpointUrl();
-		
-		Request request = null;
-		
-		if (jakuRequestData.getMethod().equalsIgnoreCase("GET")) {
-			request = new GETRequest(url);
-		} else if (jakuRequestData.getMethod().equalsIgnoreCase("POST")) {
-			request = new POSTRequest(url, "");
-		} else if (jakuRequestData.getMethod().equalsIgnoreCase("DISCOVERY")) {
-			request = new DiscoveryRequest(url);
-		}
 
-		if (request == null) {
-			throw new IOException("Invalid HTTP method:" + jakuRequestData.getMethod());
-		}
+		if (jakuRequestData.getMethod().equalsIgnoreCase(DISCOVERY)) {
+			com.jaku.core.Request request = new DiscoveryRequest(url);
+			return new JakuResponse<>(generateResponseData(request.send().getData(), (JakuParser<T>) responseParser));
+		} else {
+			OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+			okHttpBuilder.setConnectTimeout$okhttp(6000);
+			okHttpBuilder.setReadTimeout$okhttp(6000);
+			OkHttpClient okHttpClient = okHttpBuilder.build();
 
-		Response response = request.send();
-		
-		// System.out.println("Request response: " + response.getData());
-		
-		return new JakuResponse<>(generateResponseData(response, (JakuParser<T>) responseParser));
+			HttpUrl httpUrl = HttpUrl.parse(jakuRequestData.getEndpointUrl())
+					.newBuilder()
+					.build();
+
+			Request.Builder okHttpRequestBuilder = new okhttp3.Request.Builder()
+					.addHeader("User-Agent", "Jaku");
+			okHttpRequestBuilder.setUrl$okhttp(httpUrl);
+			okHttpRequestBuilder.setMethod$okhttp(jakuRequestData.getMethod());
+			Request request = okHttpRequestBuilder.build();
+
+			Call call = okHttpClient.newCall(request);
+			okhttp3.Response response = call.execute();
+
+			ResponseBody responseBody = response.body();
+
+			if (responseBody != null) {
+				byte [] body = responseBody.bytes();
+				//System.out.println("Request response: " + new String(body));
+				return new JakuResponse<>(generateResponseData(body, (JakuParser<T>) responseParser));
+			} else {
+				return null;
+			}
+		}
 	}
 
-	private T generateResponseData(Response response, JakuParser<T> parser) {
+	private T generateResponseData(byte [] body, JakuParser<T> parser) {
 		if (parser == null) {
-			return null; //response.getData();
+			return null;
 		}
 		
-		return parser.parse(response);
+		return parser.parse(body);
 	}
 }

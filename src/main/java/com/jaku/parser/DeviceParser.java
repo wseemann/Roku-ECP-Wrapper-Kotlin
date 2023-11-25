@@ -1,6 +1,5 @@
 package com.jaku.parser;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 
@@ -9,16 +8,15 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
-import com.jaku.core.Response;
 import com.jaku.model.Device;
 
 public final class DeviceParser extends JakuParser<Device> {
 
 	@Override
-	public Device parse(Response response) {
+	public Device parse(byte [] body) {
 		Device device = new Device();
 
-        if (response == null || response.getData() == null) {
+        if (body == null) {
             return device;
         }
 		
@@ -26,7 +24,7 @@ public final class DeviceParser extends JakuParser<Device> {
 
         Document document;
         try {
-            document = (Document) builder.build(new StringReader(new String(((ByteArrayOutputStream) response.getData()).toByteArray())));
+            document = builder.build(new StringReader(new String(body)));
             Element rootNode = document.getRootElement();
 
             device.setUdn(checkValue(rootNode.getChild("udn")));

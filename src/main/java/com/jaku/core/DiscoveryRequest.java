@@ -21,7 +21,7 @@ class DiscoveryRequest extends Request {
         String deviceIpAddresses = scanForAllRokus(url);
         
         Response response = new Response();
-        response.setData(deviceIpAddresses);
+        response.setData(deviceIpAddresses.getBytes());
         return response;
     }
 	

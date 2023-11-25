@@ -1,7 +1,6 @@
 package com.jaku.parser;
 
 import com.jaku.api.QueryRequests;
-import com.jaku.core.Response;
 import com.jaku.model.Device;
 
 import java.io.IOException;
@@ -11,15 +10,15 @@ import java.util.List;
 public final class DeviceDiscoveryParser extends JakuParser<List<Device>> {
 
 	@Override
-	public List<Device> parse(Response response) {
+	public List<Device> parse(byte [] body) {
 		List<Device> devices = new ArrayList<>();
 
-		if (response == null || response.getData() == null) {
+		if (body == null) {
 			return devices;
 		}
 
 		try {
-			String[] deviceIpAddresses = response.getData().toString().split("\\|");
+			String[] deviceIpAddresses = new String(body).split("\\|");
 
 			for (String deviceIp : deviceIpAddresses) {
 				Device device = QueryRequests.queryDeviceInfo("http://" + deviceIp + ":8060");

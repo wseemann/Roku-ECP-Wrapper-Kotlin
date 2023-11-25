@@ -1,6 +1,5 @@
 package com.jaku.parser;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 
@@ -10,15 +9,13 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
-import com.jaku.core.Response;
-
 public final class PlayerParser extends JakuParser<Player> {
 
     @Override
-    public Player parse(Response response) {
+    public Player parse(byte [] body) {
         Player player = new Player();
 
-        if (response == null || response.getData() == null) {
+        if (body == null) {
             return player;
         }
 
@@ -26,7 +23,7 @@ public final class PlayerParser extends JakuParser<Player> {
 
         Document document;
         try {
-            document = builder.build(new StringReader(new String(((ByteArrayOutputStream) response.getData()).toByteArray())));
+            document = builder.build(new StringReader(new String(body)));
             Element rootNode = document.getRootElement();
 
             if (rootNode.getAttribute("state") != null) {

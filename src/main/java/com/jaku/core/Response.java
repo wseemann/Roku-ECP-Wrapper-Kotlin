@@ -2,17 +2,17 @@ package com.jaku.core;
 
 public class Response {
 
-	private Object data;
+	private byte [] data;
 	
 	public Response() {
 		
 	}
 
-	public Object getData() {
+	public byte [] getData() {
 		return data;
 	}
 
-	public void setData(Object data) {
+	public void setData(byte [] data) {
 		this.data = data;
 	}
 }
