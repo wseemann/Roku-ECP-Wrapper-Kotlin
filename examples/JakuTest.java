@@ -1,3 +1,6 @@
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -5,6 +8,8 @@ import com.jaku.api.*;
 import com.jaku.core.KeypressKeyValues;
 import com.jaku.model.Channel;
 import com.jaku.model.Device;
+
+import javax.imageio.ImageIO;
 
 public class JakuTest {
 
@@ -70,9 +75,8 @@ public class JakuTest {
 	private static void queryIcon() throws IOException {
 		byte [] data = rokuDevice.queryIconRequest("1457");
 
-		//System.out.println(bufferedImage.getWidth());
-
-		//File outputfile = new File("<some path>");
-		//ImageIO.write(bufferedImage, "jpeg", outputfile);
+		File outputfile = new File("<some path>");
+		BufferedImage image = ImageIO.read( new ByteArrayInputStream(data));
+		ImageIO.write(image, "png", outputfile);
 	}
 }
