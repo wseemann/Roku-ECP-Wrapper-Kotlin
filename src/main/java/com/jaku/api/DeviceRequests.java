@@ -12,8 +12,6 @@ import com.jaku.request.DiscoveryRequest;
 public class DeviceRequests {
 
 	public static List<RokuDevice> discoverDevices() throws IOException {
-		RokuDeviceFactory rokuDeviceFactory = new RokuDeviceFactoryImpl();
-
 		List<RokuDevice> rokuDevices = new ArrayList<>();
 
 		DiscoveryRequest discoveryRequest = new DiscoveryRequest("http://239.255.255.250:1900");
@@ -24,7 +22,7 @@ public class DeviceRequests {
 		List<Device> devices = response.getResponseData();
 
 		for (Device device: devices) {
-			rokuDevices.add(rokuDeviceFactory.create(device.getHost()));
+			rokuDevices.add(RokuDevice.Companion.create(device.getHost()));
 		}
 
 		return rokuDevices;

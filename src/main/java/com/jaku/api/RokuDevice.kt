@@ -61,4 +61,10 @@ interface RokuDevice {
         provider: String,
         launch: Boolean
     )
+
+    companion object {
+        fun create(url: String): RokuDevice {
+            return RokuDeviceImpl(url)
+        }
+    }
 }
