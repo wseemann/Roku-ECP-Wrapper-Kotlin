@@ -1,8 +1,10 @@
 package com.jaku;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.jaku.api.DeviceRequests;
+import com.jaku.api.RokuDevice;
 
 public class Jaku {
 
@@ -26,7 +28,14 @@ public class Jaku {
 		File outputfile = new File("/Users/wseemann/Desktop/poop.jpeg");
 	    ImageIO.write(bufferedImage, "jpeg", outputfile);*/
 		
-        DeviceRequests.discoverDevices();
+        List<RokuDevice> rokuDevices = DeviceRequests.discoverDevices();
+
+		if (rokuDevices != null) {
+			for (RokuDevice rokuDevice: rokuDevices) {
+				System.out.println("Found device with IP address: " + rokuDevice.getHost());
+			}
+		}
+
 	    //KeyRequests.keypressRequest("http://192.168.1.103:8060", KeypressKeyValues.BACK);
         //SearchRequests.searchRequest("http://192.168.1.103:8060", "Lego", "lego", null, null, 1, false, true, null, null, true);
 	}

@@ -1,6 +1,6 @@
 package com.jaku.core;
 
-public interface RequestParameters {
-	public String getMethod();
-	public String getPath();
+interface RequestParameters {
+	String getMethod();
+	String getPath();
 }

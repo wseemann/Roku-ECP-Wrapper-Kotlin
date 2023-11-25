@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class GETRequest extends Request {
+class GETRequest extends Request {
 
 	public GETRequest(String url) {
 		super(url, null);
@@ -17,7 +17,7 @@ public class GETRequest extends Request {
     public Response send() throws IOException {
     	HttpURLConnection conn = null;
         BufferedReader reader = null;
-        InputStream is = null;
+        InputStream is;
         ByteArrayOutputStream os = null;
         int len = -1;
         
@@ -44,11 +44,7 @@ public class GETRequest extends Request {
 	        	os.write(byteChunk, 0, len);
 	        }
         } finally {
-        	if (reader != null) {
-        		reader.close();
-        	}
-        	
-        	if (conn != null) {
+            if (conn != null) {
         		conn.disconnect();
         	}
         }

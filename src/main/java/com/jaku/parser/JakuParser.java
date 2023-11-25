@@ -2,6 +2,6 @@ package com.jaku.parser;
 
 import com.jaku.core.Response;
 
-public abstract class JakuParser {
-	public abstract Object parse(Response response);
+public abstract class JakuParser<T> {
+	public abstract T parse(Response response);
 }

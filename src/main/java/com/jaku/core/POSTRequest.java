@@ -1,6 +1,5 @@
 package com.jaku.core;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class POSTRequest extends Request {
+class POSTRequest extends Request {
 
 	public POSTRequest(String url, String body) {
 		super(url, body);
@@ -20,8 +19,7 @@ public class POSTRequest extends Request {
 	@Override
     public Response send() throws IOException {
     	HttpURLConnection conn = null;
-        BufferedReader reader = null;
-        InputStream is = null;
+        InputStream is;
         ByteArrayOutputStream bos = null;
         int len = -1;
         
@@ -63,10 +61,6 @@ public class POSTRequest extends Request {
 	        	bos.write(byteChunk, 0, len);
 	        }
         } finally {
-        	if (reader != null) {
-        		reader.close();
-        	}
-        	
         	if (conn != null) {
         		conn.disconnect();
         	}

@@ -12,10 +12,10 @@ import org.jdom2.input.SAXBuilder;
 import com.jaku.core.Response;
 import com.jaku.model.Device;
 
-public class DeviceParser extends JakuParser {
+public final class DeviceParser extends JakuParser<Device> {
 
 	@Override
-	public Object parse(Response response) {
+	public Device parse(Response response) {
 		Device device = new Device();
 
         if (response == null || response.getData() == null) {

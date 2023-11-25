@@ -1,10 +1,11 @@
 package com.jaku.request;
 
 import com.jaku.core.JakuRequestData;
+import com.jaku.parser.JakuParser;
 
-public class KeyupRequest extends JakuRequestData {
+final public class KeyupRequest extends JakuRequestData {
 
-	private String key;
+	private final String key;
 	
 	public KeyupRequest(String url, String key) {
 		super(url);		
@@ -19,5 +20,10 @@ public class KeyupRequest extends JakuRequestData {
 	@Override
 	public String getMethod() {
 		return "POST";
+	}
+
+	@Override
+	public JakuParser<?> getParser() {
+		return null;
 	}
 }

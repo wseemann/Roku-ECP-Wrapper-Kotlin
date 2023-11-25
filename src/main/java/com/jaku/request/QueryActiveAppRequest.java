@@ -1,13 +1,15 @@
 package com.jaku.request;
 
 import com.jaku.core.JakuRequestData;
+import com.jaku.parser.AppsParser;
+import com.jaku.parser.JakuParser;
 
-public class QueryActiveAppRequest extends JakuRequestData {
+final public class QueryActiveAppRequest extends JakuRequestData {
 
 	public QueryActiveAppRequest(String url) {
 		super(url);		
 	}
-	
+
 	@Override
 	public String getPath() {
 		return "/query/active-app";
@@ -16,5 +18,10 @@ public class QueryActiveAppRequest extends JakuRequestData {
 	@Override
 	public String getMethod() {
 		return "GET";
+	}
+
+	@Override
+	public JakuParser<?> getParser() {
+		return new AppsParser();
 	}
 }

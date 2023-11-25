@@ -2,7 +2,7 @@ package com.jaku.parser;
 
 import com.jaku.core.Response;
 
-public class IconParser extends JakuParser {
+public final class IconParser extends JakuParser {
 
 	@Override
 	public Object parse(Response response) {

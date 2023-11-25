@@ -1,10 +1,12 @@
 package com.jaku.request;
 
 import com.jaku.core.JakuRequestData;
+import com.jaku.parser.IconParser;
+import com.jaku.parser.JakuParser;
 
-public class QueryIconRequest extends JakuRequestData {
+final public class QueryIconRequest extends JakuRequestData {
 
-	private String appId;
+	private final String appId;
 	
 	public QueryIconRequest(String url, String appId) {
 		super(url);
@@ -19,5 +21,11 @@ public class QueryIconRequest extends JakuRequestData {
 	@Override
 	public String getMethod() {
 		return "GET";
+	}
+
+
+	@Override
+	public JakuParser<?> getParser() {
+		return new IconParser();
 	}
 }

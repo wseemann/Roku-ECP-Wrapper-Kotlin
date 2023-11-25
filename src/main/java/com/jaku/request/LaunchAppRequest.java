@@ -1,10 +1,11 @@
 package com.jaku.request;
 
 import com.jaku.core.JakuRequestData;
+import com.jaku.parser.JakuParser;
 
-public class LaunchAppRequest extends JakuRequestData {
+final public class LaunchAppRequest extends JakuRequestData {
 
-	private String appId;
+	private final String appId;
 	
 	public LaunchAppRequest(String url, String appId) {
 		super(url);		
@@ -19,5 +20,10 @@ public class LaunchAppRequest extends JakuRequestData {
 	@Override
 	public String getMethod() {
 		return "POST";
+	}
+
+	@Override
+	public JakuParser<?> getParser() {
+		return null;
 	}
 }

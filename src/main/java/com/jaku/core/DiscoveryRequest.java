@@ -8,10 +8,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jaku.api.QueryRequests;
-import com.jaku.model.Device;
-
-public class DiscoveryRequest extends Request {
+class DiscoveryRequest extends Request {
 
 	public DiscoveryRequest(String url) {
 		super(url, null);
@@ -19,28 +16,18 @@ public class DiscoveryRequest extends Request {
 	
 	@Override
     public Response send() throws IOException {
-		List<String> deviceIpAddresses = null;
-		List<Device> devices = new ArrayList<Device>();
-		
-        URL uri = new URL(this.url);
+        URL url = new URL(this.url);
         	
-        deviceIpAddresses = scanForAllRokus(uri);
-        	
-        for (String deviceIp: deviceIpAddresses) {
-        	Device device = QueryRequests.queryDeviceInfo("http://" + deviceIp + ":8060");
-        	device.setHost("http://" + deviceIp + ":8060");
-        	devices.add(device);
-        }
+        String deviceIpAddresses = scanForAllRokus(url);
         
         Response response = new Response();
-        response.setData(devices);
-        
+        response.setData(deviceIpAddresses);
         return response;
     }
 	
 	private String scanForRoku(URL url) throws IOException {
 		/* create byte arrays to hold our send and response data */
-		byte[] sendData = new byte[1024];
+		byte[] sendData;
 		byte[] receiveData = new byte[1024];
 
 		/* our M-SEARCH data as a byte array */
@@ -71,17 +58,15 @@ public class DiscoveryRequest extends Request {
 		   So we find the line, then split it at the http:// and the : to get the address.
 		*/
 		response = response.toLowerCase();
-		String address = response.split("location:")[1].split("\n")[0].split("http://")[1].split(":")[0].trim();
-		
 		/* return the IP */
-		return address;
+		return response.split("location:")[1].split("\n")[0].split("http://")[1].split(":")[0].trim();
 	}
 
-	private List<String> scanForAllRokus(URL url) throws IOException {
+	private String scanForAllRokus(URL url) throws IOException {
 		List<String> deviceList = new ArrayList<String>();
 
 		String address;
-		
+
 		for (int i = 0; i < 10; i++) {
 			address = scanForRoku(url);
 			if (!deviceList.contains(address)) {
@@ -89,6 +74,16 @@ public class DiscoveryRequest extends Request {
 			}
 		}
 
-		return deviceList;
+		StringBuilder stringBuffer = new StringBuilder();
+
+		for (int i = 0; i < deviceList.size(); i++) {
+			if (i != 0) {
+				stringBuffer.append('|');
+			}
+
+			stringBuffer.append(deviceList.get(i));
+		}
+
+		return stringBuffer.toString();
 	}
 }

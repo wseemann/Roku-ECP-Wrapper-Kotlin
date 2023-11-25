@@ -4,21 +4,18 @@ import java.io.IOException;
 
 import com.jaku.parser.JakuParser;
 
-public class JakuRequest {
+public final class JakuRequest<T> {
 
-	private JakuRequestData jakuRequestData;
-	private JakuParser jakuParser;
-	
-	public JakuRequest(JakuRequestData piavaRequestData, JakuParser jakuParser) {
-		this.jakuRequestData = piavaRequestData;
-		this.jakuParser = jakuParser;
+	private final JakuRequestData jakuRequestData;
+	private final JakuParser<?> responseParser;
+
+	public JakuRequest(JakuRequestData jakuRequestData) {
+		this.jakuRequestData = jakuRequestData;
+		this.responseParser = jakuRequestData.getParser();
 	}
 	
-	public JakuResponse send() throws IOException {
-		JakuResponse jakuResponse = null;
-		
+	public JakuResponse<T> send() throws IOException {
 		String url = jakuRequestData.getEndpointUrl();
-		JakuParser parser = jakuParser;
 		
 		Request request = null;
 		
@@ -29,19 +26,21 @@ public class JakuRequest {
 		} else if (jakuRequestData.getMethod().equalsIgnoreCase("DISCOVERY")) {
 			request = new DiscoveryRequest(url);
 		}
-		
+
+		if (request == null) {
+			throw new IOException("Invalid HTTP method:" + jakuRequestData.getMethod());
+		}
+
 		Response response = request.send();
 		
-		System.out.println("Request response: " + response.getData());
+		// System.out.println("Request response: " + response.getData());
 		
-		jakuResponse = new JakuResponse(generateResponseData(response, parser));
-		
-		return jakuResponse;
+		return new JakuResponse<>(generateResponseData(response, (JakuParser<T>) responseParser));
 	}
-	
-	private Object generateResponseData(Response response, JakuParser parser) {
+
+	private T generateResponseData(Response response, JakuParser<T> parser) {
 		if (parser == null) {
-			return null;
+			return null; //response.getData();
 		}
 		
 		return parser.parse(response);

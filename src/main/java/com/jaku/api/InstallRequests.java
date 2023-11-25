@@ -11,10 +11,10 @@ public class InstallRequests {
 		
 	}
 	
-	public static final void installRequest(String url, String appId) throws IOException {
+	public static void installRequest(String url, String appId) throws IOException {
 		InstallRequest installRequest = new InstallRequest(url, appId);
 		
-		JakuRequest request = new JakuRequest(installRequest, null);
+		JakuRequest request = new JakuRequest(installRequest);
 		request.send();
 	}
 }

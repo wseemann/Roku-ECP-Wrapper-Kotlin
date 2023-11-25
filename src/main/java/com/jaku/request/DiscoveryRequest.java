@@ -1,13 +1,15 @@
 package com.jaku.request;
 
 import com.jaku.core.JakuRequestData;
+import com.jaku.parser.DeviceDiscoveryParser;
+import com.jaku.parser.JakuParser;
 
-public class DiscoveryRequest extends JakuRequestData {
+final public class DiscoveryRequest extends JakuRequestData {
 
 	public DiscoveryRequest(String url) {
 		super(url);		
 	}
-	
+
 	@Override
 	public String getPath() {
 		return "";
@@ -16,5 +18,10 @@ public class DiscoveryRequest extends JakuRequestData {
 	@Override
 	public String getMethod() {
 		return "DISCOVERY";
+	}
+
+	@Override
+	public JakuParser<?> getParser() {
+		return new DeviceDiscoveryParser();
 	}
 }

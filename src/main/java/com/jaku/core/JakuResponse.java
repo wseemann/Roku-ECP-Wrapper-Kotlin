@@ -1,18 +1,18 @@
 package com.jaku.core;
 
-public class JakuResponse {
+public class JakuResponse<T> {
 	
-	private Object jakuResponseData;
+	private T jakuResponseData;
 	
-	public JakuResponse(Object jakuResponseData) {
+	public JakuResponse(T jakuResponseData) {
 		this.jakuResponseData = jakuResponseData;
 	}
 
-	public Object getResponseData() {
+	public T getResponseData() {
 		return jakuResponseData;
 	}
 
-	public void setResponseData(JakuResponseData jakuResponseData) {
+	public void setResponseData(T jakuResponseData) {
 		this.jakuResponseData = jakuResponseData;
 	}
 }

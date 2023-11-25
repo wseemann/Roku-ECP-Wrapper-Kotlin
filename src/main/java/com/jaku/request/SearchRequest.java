@@ -9,8 +9,9 @@ import java.util.Map.Entry;
 
 import com.jaku.core.JakuRequestData;
 import com.jaku.core.SearchTypeValues;
+import com.jaku.parser.JakuParser;
 
-public class SearchRequest extends JakuRequestData {
+final public class SearchRequest extends JakuRequestData {
 
 	private static final String KEYWORD = "keyword";
 	private static final String TITLE = "title";
@@ -23,34 +24,12 @@ public class SearchRequest extends JakuRequestData {
 	private static final String PROVIDER = "provider";
 	private static final String LAUNCH = "launch";
 	
-	private String keyword;
-	private String title;
-	private SearchTypeValues type;
-	private String tmsid;
-	private Integer season;
-	private Boolean showUnavailable;
-	private Boolean matchAny;
-	private Long providerId;
-	private String provider;
-	private Boolean launch;
-	
-	private LinkedHashMap<String, Object> parameters = new LinkedHashMap<String, Object>();
+	private final LinkedHashMap<String, Object> parameters = new LinkedHashMap<String, Object>();
 	
 	public SearchRequest(String url, String keyword, String title, SearchTypeValues type,
 			String tmsid, Integer season, Boolean showUnavailable, Boolean matchAny,
 			Long providerId, String provider, Boolean launch) {
 		super(url);
-		this.keyword = keyword;
-		this.title = title;
-		this.type = type;
-		this.tmsid = tmsid;
-		this.season = season;
-		this.showUnavailable = showUnavailable;
-		this.matchAny = matchAny;
-		this.providerId = providerId;
-		this.provider = provider;
-		this.launch = launch;
-		
 		parameters.put(KEYWORD, keyword);
 		parameters.put(TITLE, title);
 		parameters.put(TYPE, type);
@@ -65,31 +44,25 @@ public class SearchRequest extends JakuRequestData {
 	
 	@Override
 	public String getPath() {
-		StringBuffer queryParameters = null;
+		StringBuilder queryParameters = new StringBuilder();
 		
 	    Iterator<Entry<String, Object>> it = parameters.entrySet().iterator();
 	    while (it.hasNext()) {
 	        Map.Entry<String, Object> pair = it.next();
 	        
-	        String queryParameter = null;
+	        String queryParameter;
 	        
 	        if ((queryParameter = addQueryParameter(pair.getKey(), pair.getValue())) != null) {
-	        	
-	        	if (queryParameters == null) {
-	        		queryParameters = new StringBuffer();
-	        	} else {
-	        		queryParameters.append("&");
-	        	}
-	        	
+				queryParameters.append("&");
 	        	queryParameters.append(queryParameter);
 	        }
 	        
 	        it.remove();
 	    }
 		
-		System.out.println(queryParameters.toString());
+		System.out.println(queryParameters);
 		
-		return "/search/browse?" + queryParameters.toString();
+		return "/search/browse?" + queryParameters;
 	}
 	
 	@Override
@@ -118,6 +91,11 @@ public class SearchRequest extends JakuRequestData {
 			e.printStackTrace();
 		}
 		
+		return null;
+	}
+
+	@Override
+	public JakuParser<?> getParser() {
 		return null;
 	}
 }

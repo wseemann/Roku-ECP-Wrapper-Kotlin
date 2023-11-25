@@ -12,10 +12,10 @@ import org.jdom2.input.SAXBuilder;
 
 import com.jaku.core.Response;
 
-public class PlayerParser extends JakuParser {
+public final class PlayerParser extends JakuParser<Player> {
 
     @Override
-    public Object parse(Response response) {
+    public Player parse(Response response) {
         Player player = new Player();
 
         if (response == null || response.getData() == null) {
@@ -26,7 +26,7 @@ public class PlayerParser extends JakuParser {
 
         Document document;
         try {
-            document = (Document) builder.build(new StringReader(new String(((ByteArrayOutputStream) response.getData()).toByteArray())));
+            document = builder.build(new StringReader(new String(((ByteArrayOutputStream) response.getData()).toByteArray())));
             Element rootNode = document.getRootElement();
 
             if (rootNode.getAttribute("state") != null) {

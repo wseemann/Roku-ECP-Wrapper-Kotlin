@@ -14,10 +14,10 @@ import org.jdom2.input.SAXBuilder;
 import com.jaku.core.Response;
 import com.jaku.model.Channel;
 
-public class AppsParser extends JakuParser {
+public final class AppsParser extends JakuParser<List<Channel>> {
 
 	@Override
-	public Object parse(Response response) {		
+	public List<Channel> parse(Response response) {
 		List<Channel> channels = new ArrayList<Channel>();
 
 		if (response == null || response.getData() == null) {
@@ -28,7 +28,7 @@ public class AppsParser extends JakuParser {
 
         Document document;
         try {
-            document = (Document) builder.build(new StringReader(new String(((ByteArrayOutputStream) response.getData()).toByteArray())));
+            document = builder.build(new StringReader(new String(((ByteArrayOutputStream) response.getData()).toByteArray())));
             Element rootNode = document.getRootElement();
 
             List<Element> children = rootNode.getChildren();

@@ -12,13 +12,13 @@ public class SearchRequests {
 		
 	}
 	
-	public static final void searchRequest(String url, String keyword, String title, SearchTypeValues type,
-			String tmsid, Integer season, Boolean showUnavailable, Boolean matchAny,
-			Long providerId, String provider, Boolean launch) throws IOException {
+	public static void searchRequest(String url, String keyword, String title, SearchTypeValues type,
+                                     String tmsId, Integer season, Boolean showUnavailable, Boolean matchAny,
+                                     Long providerId, String provider, Boolean launch) throws IOException {
 		SearchRequest searchRequest = new SearchRequest(url, keyword, title, type,
-				tmsid, season, showUnavailable, matchAny, providerId, provider, launch);
+				tmsId, season, showUnavailable, matchAny, providerId, provider, launch);
 		
-		JakuRequest request = new JakuRequest(searchRequest, null);
+		JakuRequest request = new JakuRequest(searchRequest);
 		request.send();
 	}
 }
