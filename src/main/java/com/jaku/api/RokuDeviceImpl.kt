@@ -88,9 +88,9 @@ internal class RokuDeviceImpl(private val url: String) : RokuDevice {
 
     override fun queryIconRequest(appId: String): ByteArray {
         val queryActiveAppRequest = QueryIconRequest(url, appId)
-        val request = JakuRequest<ByteArrayOutputStream>(queryActiveAppRequest)
+        val request = JakuRequest<ByteArray>(queryActiveAppRequest)
         val response = request.send()
-        return response.responseData.toByteArray()
+        return response.responseData
     }
 
     override fun queryMediaPlayer(url: String): Player {

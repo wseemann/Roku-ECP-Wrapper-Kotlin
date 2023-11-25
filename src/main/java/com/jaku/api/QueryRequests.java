@@ -1,6 +1,5 @@
 package com.jaku.api;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class QueryRequests {
 		JakuRequest request = new JakuRequest(queryActiveAppRequest);
 		JakuResponse response = request.send();
 		
-		return ((ByteArrayOutputStream) response.getResponseData()).toByteArray();
+		return (byte []) response.getResponseData();
 	}
 
 	public static Player queryMediaPlayer(String url) throws IOException {
