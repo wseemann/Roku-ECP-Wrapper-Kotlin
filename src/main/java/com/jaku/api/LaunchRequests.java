@@ -14,7 +14,7 @@ public class LaunchRequests {
 	public static void launchAppIdRequest(String url, String appId) throws IOException {
 		LaunchAppRequest launchAppIdRequest = new LaunchAppRequest(url, appId);
 		
-		JakuRequest request = new JakuRequest(launchAppIdRequest);
+		JakuRequest<Void> request = new JakuRequest<>(launchAppIdRequest);
 		request.send();
 	}
 }

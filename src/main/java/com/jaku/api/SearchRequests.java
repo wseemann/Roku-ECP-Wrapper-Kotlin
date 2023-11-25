@@ -18,7 +18,7 @@ public class SearchRequests {
 		SearchRequest searchRequest = new SearchRequest(url, keyword, title, type,
 				tmsId, season, showUnavailable, matchAny, providerId, provider, launch);
 		
-		JakuRequest request = new JakuRequest(searchRequest);
+		JakuRequest<Void> request = new JakuRequest<>(searchRequest);
 		request.send();
 	}
 }

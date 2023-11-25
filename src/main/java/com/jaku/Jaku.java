@@ -1,42 +1,86 @@
 package com.jaku;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import com.jaku.api.DeviceRequests;
-import com.jaku.api.RokuDevice;
+import com.jaku.api.*;
+import com.jaku.core.KeypressKeyValues;
+import com.jaku.model.Channel;
+import com.jaku.model.Device;
+
+import javax.imageio.ImageIO;
 
 public class Jaku {
 
-	public static void main(String [] args) throws IOException {
-		System.out.println("Hello, this is Jaku");
-		
-        /*byte[] data = QueryRequests.queryIconRequest("http://192.168.1.103:8060", "1457");
-		
-        InputStream is = null;
-        BufferedImage bufferedImage = null;
-		
+	private static final String ROKU_DEVICE_IP_ADDRESS = "http://192.168.0.18:8060";
+    private static RokuDevice rokuDevice;
+
+	public static void main(String [] args) {
 		try {
-			is = new ByteArrayInputStream(data);
-			bufferedImage = ImageIO.read(is);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		System.out.println(bufferedImage.getWidth());
-		
-		File outputfile = new File("/Users/wseemann/Desktop/poop.jpeg");
-	    ImageIO.write(bufferedImage, "jpeg", outputfile);*/
-		
-        List<RokuDevice> rokuDevices = DeviceRequests.discoverDevices();
+			DeviceRequests.discoverDevices();
 
-		if (rokuDevices != null) {
-			for (RokuDevice rokuDevice: rokuDevices) {
-				System.out.println("Found device with IP address: " + rokuDevice.getHost());
-			}
-		}
+			RokuDeviceFactory rokuDeviceFactory = new RokuDeviceFactoryImpl();
+			rokuDevice = rokuDeviceFactory.create(ROKU_DEVICE_IP_ADDRESS);
 
-	    //KeyRequests.keypressRequest("http://192.168.1.103:8060", KeypressKeyValues.BACK);
-        //SearchRequests.searchRequest("http://192.168.1.103:8060", "Lego", "lego", null, null, 1, false, true, null, null, true);
+			testKeypress();
+			testKeydown();
+			testKeyup();
+			queryApps();
+			queryActiveApp();
+			queryDeviceInfo();
+			launchAppId();
+			queryIcon();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private static void testKeypress() throws IOException {
+		rokuDevice.keyPressRequest(KeypressKeyValues.INFO);
+	}
+
+	private static void testKeydown() throws IOException {
+		rokuDevice.keyDownRequest(KeypressKeyValues.INFO);
+	}
+
+	private static void testKeyup() throws IOException {
+		rokuDevice.keyUpRequest(KeypressKeyValues.INFO);
+	}
+
+	private static void queryApps() throws IOException {
+		List<Channel> channels = rokuDevice.queryAppsRequest();
+
+		for (Channel channel: channels) {
+			System.out.println(channel.getTitle());
+		}
+	}
+
+	private static void queryActiveApp() throws IOException {
+		List<Channel> channels = rokuDevice.queryActiveAppRequest();
+
+		for (Channel channel: channels) {
+			System.out.println(channel.getId());
+		}
+	}
+
+	private static void queryDeviceInfo() throws IOException {
+		Device device = rokuDevice.queryDeviceInfo();
+
+		System.out.println(device.getCountry());
+	}
+
+	private static void launchAppId() throws IOException {
+		rokuDevice.launchAppIdRequest("1457");
+	}
+
+	private static void queryIcon() throws IOException {
+		byte [] data = rokuDevice.queryIconRequest("1457");
+
+		File outputfile = new File("<some path>");
+		BufferedImage image = ImageIO.read( new ByteArrayInputStream(data));
+		ImageIO.write(image, "png", outputfile);
 	}
 }

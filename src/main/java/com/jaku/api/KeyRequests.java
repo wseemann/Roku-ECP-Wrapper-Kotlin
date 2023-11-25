@@ -17,14 +17,14 @@ public class KeyRequests {
 	public static void keypressRequest(String url, KeypressKeyValues keypressKeyValue) throws IOException {
 		KeypressRequest keypressRequest = new KeypressRequest(url, keypressKeyValue.getValue());
 		
-		JakuRequest request = new JakuRequest(keypressRequest);
+		JakuRequest<Void> request = new JakuRequest<>(keypressRequest);
 		request.send();
 	}
 	
 	public static void keypressRequest(String url, char literalCharacter) throws IOException {
 		KeypressRequest keypressRequest = new KeypressRequest(url, KeypressKeyValues.LIT_.getValue() + literalCharacter);
 		
-		JakuRequest request = new JakuRequest(keypressRequest);
+		JakuRequest<Void> request = new JakuRequest<>(keypressRequest);
 		request.send();
 	}
 	
@@ -37,8 +37,8 @@ public class KeyRequests {
 			} else {
 				keypressRequest = new KeypressRequest(url, KeypressKeyValues.LIT_.getValue() + '+');
 			}
-			    
-			JakuRequest request = new JakuRequest(keypressRequest);
+
+			JakuRequest<Void> request = new JakuRequest<>(keypressRequest);
 			request.send();
 			
 			Thread.sleep(100);
@@ -48,14 +48,14 @@ public class KeyRequests {
 	public static void keydownRequest(String url, KeypressKeyValues keypressKeyValue) throws IOException {
 		KeydownRequest keydownRequest = new KeydownRequest(url, keypressKeyValue.getValue());
 		
-		JakuRequest request = new JakuRequest(keydownRequest);
+		JakuRequest<Void> request = new JakuRequest<>(keydownRequest);
 		request.send();
 	}
 	
 	public static void keyupRequest(String url, KeypressKeyValues keypressKeyValue) throws IOException {
 		KeyupRequest keyupRequest = new KeyupRequest(url, keypressKeyValue.getValue());
 		
-		JakuRequest request = new JakuRequest(keyupRequest);
+		JakuRequest<Void> request = new JakuRequest<>(keyupRequest);
 		request.send();
 	}
 }

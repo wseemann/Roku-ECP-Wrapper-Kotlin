@@ -18,10 +18,10 @@ public class DeviceRequests {
 
 		DiscoveryRequest discoveryRequest = new DiscoveryRequest("http://239.255.255.250:1900");
 		
-		JakuRequest request = new JakuRequest(discoveryRequest);
-		JakuResponse response = request.send();
+		JakuRequest<List<Device>> request = new JakuRequest<>(discoveryRequest);
+		JakuResponse<List<Device>> response = request.send();
 		
-		List<Device> devices = (List<Device>) response.getResponseData();
+		List<Device> devices = response.getResponseData();
 
 		for (Device device: devices) {
 			rokuDevices.add(rokuDeviceFactory.create(device.getHost()));
