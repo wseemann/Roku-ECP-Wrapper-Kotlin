@@ -15,41 +15,35 @@ import com.jaku.model.Channel;
 public final class AppsParser extends JakuParser<List<Channel>> {
 
 	@Override
-	public List<Channel> parse(byte [] body) {
+	public List<Channel> parse(byte [] body) throws IOException, JDOMException {
 		List<Channel> channels = new ArrayList<Channel>();
 
 		if (body == null) {
 			return channels;
 		}
-		
+
         SAXBuilder builder = new SAXBuilder();
 
         Document document;
-        try {
-            document = builder.build(new StringReader(new String(body)));
-            Element rootNode = document.getRootElement();
+        document = builder.build(new StringReader(new String(body)));
+        Element rootNode = document.getRootElement();
 
-            List<Element> children = rootNode.getChildren();
+        List<Element> children = rootNode.getChildren();
 
-            for (int i = 0; i < children.size(); i++) {
-                Element element = children.get(i);
+        for (int i = 0; i < children.size(); i++) {
+            Element element = children.get(i);
 
-                if (element.getAttribute("id") == null) {
-                    continue;
-                }
-
-                Channel channel = new Channel();
-                channel.setId(element.getAttribute("id").getValue());
-                channel.setTitle(element.getValue());
-                channel.setType(element.getAttribute("type").getValue());
-                channel.setVersion(element.getAttribute("version").getValue());
-
-                channels.add(channel);
+            if (element.getAttribute("id") == null) {
+                continue;
             }
-        } catch (JDOMException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+
+            Channel channel = new Channel();
+            channel.setId(element.getAttribute("id").getValue());
+            channel.setTitle(element.getValue());
+            channel.setType(element.getAttribute("type").getValue());
+            channel.setVersion(element.getAttribute("version").getValue());
+
+            channels.add(channel);
         }
 
         return channels;

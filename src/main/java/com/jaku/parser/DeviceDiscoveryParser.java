@@ -10,23 +10,19 @@ import java.util.List;
 public final class DeviceDiscoveryParser extends JakuParser<List<Device>> {
 
 	@Override
-	public List<Device> parse(byte [] body) {
+	public List<Device> parse(byte [] body) throws IOException {
 		List<Device> devices = new ArrayList<>();
 
 		if (body == null) {
 			return devices;
 		}
 
-		try {
-			String[] deviceIpAddresses = new String(body).split("\\|");
+		String[] deviceIpAddresses = new String(body).split("\\|");
 
-			for (String deviceIp : deviceIpAddresses) {
-				Device device = QueryRequests.queryDeviceInfo("http://" + deviceIp + ":8060");
-				device.setHost("http://" + deviceIp + ":8060");
-				devices.add(device);
-			}
-		} catch (IOException ex) {
-			ex.printStackTrace();
+		for (String deviceIp : deviceIpAddresses) {
+			Device device = QueryRequests.queryDeviceInfo("http://" + deviceIp + ":8060");
+			device.setHost("http://" + deviceIp + ":8060");
+			devices.add(device);
 		}
 
 		return devices;

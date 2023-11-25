@@ -7,7 +7,6 @@ import com.jaku.model.Channel
 import com.jaku.model.Device
 import com.jaku.model.Player
 import com.jaku.request.*
-import java.io.ByteArrayOutputStream
 
 internal class RokuDeviceImpl(private val url: String) : RokuDevice {
     override fun getHost(): String {

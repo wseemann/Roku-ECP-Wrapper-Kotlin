@@ -12,7 +12,7 @@ import org.jdom2.input.SAXBuilder;
 public final class PlayerParser extends JakuParser<Player> {
 
     @Override
-    public Player parse(byte [] body) {
+    public Player parse(byte [] body) throws IOException, JDOMException {
         Player player = new Player();
 
         if (body == null) {
@@ -21,18 +21,11 @@ public final class PlayerParser extends JakuParser<Player> {
 
         SAXBuilder builder = new SAXBuilder();
 
-        Document document;
-        try {
-            document = builder.build(new StringReader(new String(body)));
-            Element rootNode = document.getRootElement();
+        Document document = builder.build(new StringReader(new String(body)));
+        Element rootNode = document.getRootElement();
 
-            if (rootNode.getAttribute("state") != null) {
-                player.setState(rootNode.getAttribute("state").getValue());
-            }
-        } catch (JDOMException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        if (rootNode.getAttribute("state") != null) {
+            player.setState(rootNode.getAttribute("state").getValue());
         }
 
         return player;
