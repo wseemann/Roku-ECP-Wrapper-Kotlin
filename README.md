@@ -1,15 +1,15 @@
-Jaku
+Roku ECP Wrapper
 ============================
 
 Overview
 --------
 
-Jaku is a Kotlin wrapper/client for the [Roku External Control API](https://developer.roku.com/docs/developer-program/dev-tools/external-control-api.md).
+Roku ECP Wrapper is a Kotlin based wrapper/client for the [Roku External Control API](https://developer.roku.com/docs/developer-program/dev-tools/external-control-api.md).
 
 Key Features:
 --------
 
-Jaku includes helper functions to:
+Roku ECP Wrapper includes helper functions to:
 
 #### Query
 * List all channels and active channels
@@ -64,7 +64,7 @@ License
 ------------
 
 ```
-Jaku: A Kotlin wrapper/client for the Roku External Control API.
+Roku ECP Wrapper: A Kotlin wrapper/client for the Roku External Control API.
 
 Copyright 2023 William Seemann
 
