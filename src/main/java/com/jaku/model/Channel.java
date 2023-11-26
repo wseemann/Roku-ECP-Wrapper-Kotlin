@@ -45,7 +45,7 @@ public class Channel {
 		this.mType = mType;
 	}
 	
-	public String getVerion() {
+	public String getVersion() {
 		return mVersion;
 	}
 

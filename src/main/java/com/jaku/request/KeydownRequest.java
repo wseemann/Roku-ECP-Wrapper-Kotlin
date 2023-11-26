@@ -1,9 +1,9 @@
 package com.jaku.request;
 
-import com.jaku.core.JakuRequestData;
+import com.jaku.core.JakuRequest;
 import com.jaku.parser.JakuParser;
 
-final public class KeydownRequest extends JakuRequestData {
+final public class KeydownRequest extends JakuRequest<Void> {
 
 	private final String key;
 	
@@ -23,7 +23,7 @@ final public class KeydownRequest extends JakuRequestData {
 	}
 
 	@Override
-	public JakuParser<?> getParser() {
+	public JakuParser<Void> getParser() {
 		return null;
 	}
 }

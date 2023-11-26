@@ -1,10 +1,11 @@
 package com.jaku.request;
 
-import com.jaku.core.JakuRequestData;
+import com.jaku.core.JakuRequest;
+import com.jaku.model.Player;
 import com.jaku.parser.JakuParser;
 import com.jaku.parser.PlayerParser;
 
-final public class QueryMediaPlayerRequest extends JakuRequestData {
+final public class QueryMediaPlayerRequest extends JakuRequest<Player> {
 
     public QueryMediaPlayerRequest(String url) {
         super(url);
@@ -21,7 +22,7 @@ final public class QueryMediaPlayerRequest extends JakuRequestData {
     }
 
     @Override
-    public JakuParser<?> getParser() {
+    public JakuParser<Player> getParser() {
         return new PlayerParser();
     }
 }

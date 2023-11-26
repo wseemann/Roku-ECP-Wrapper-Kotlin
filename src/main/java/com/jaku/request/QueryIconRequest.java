@@ -1,10 +1,10 @@
 package com.jaku.request;
 
-import com.jaku.core.JakuRequestData;
+import com.jaku.core.JakuRequest;
 import com.jaku.parser.IconParser;
 import com.jaku.parser.JakuParser;
 
-final public class QueryIconRequest extends JakuRequestData {
+final public class QueryIconRequest extends JakuRequest<byte []> {
 
 	private final String appId;
 	
@@ -25,7 +25,7 @@ final public class QueryIconRequest extends JakuRequestData {
 
 
 	@Override
-	public JakuParser<?> getParser() {
+	public JakuParser<byte []> getParser() {
 		return new IconParser();
 	}
 }

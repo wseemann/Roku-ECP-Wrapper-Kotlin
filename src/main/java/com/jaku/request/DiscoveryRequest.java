@@ -1,10 +1,13 @@
 package com.jaku.request;
 
-import com.jaku.core.JakuRequestData;
+import com.jaku.core.JakuRequest;
+import com.jaku.model.Device;
 import com.jaku.parser.DeviceDiscoveryParser;
 import com.jaku.parser.JakuParser;
 
-final public class DiscoveryRequest extends JakuRequestData {
+import java.util.List;
+
+final public class DiscoveryRequest extends JakuRequest<List<Device>> {
 
 	public DiscoveryRequest(String url) {
 		super(url);		
@@ -21,7 +24,7 @@ final public class DiscoveryRequest extends JakuRequestData {
 	}
 
 	@Override
-	public JakuParser<?> getParser() {
+	public JakuParser<List<Device>> getParser() {
 		return new DeviceDiscoveryParser();
 	}
 }

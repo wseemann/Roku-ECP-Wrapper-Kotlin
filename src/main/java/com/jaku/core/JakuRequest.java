@@ -7,25 +7,28 @@ import okhttp3.*;
 import okhttp3.Request;
 import org.jdom2.JDOMException;
 
-public final class JakuRequest<T> {
+public abstract class JakuRequest<T> {
 
 	private static final String DISCOVERY = "DISCOVERY";
 
-	private final JakuRequestData jakuRequestData;
-	private final JakuParser<T> responseParser;
+	private final String url;
 
-	public JakuRequest(JakuRequestData jakuRequestData) {
-		this.jakuRequestData = jakuRequestData;
-		this.responseParser = (JakuParser<T>) jakuRequestData.getParser();
+	protected JakuRequest(String url) {
+		this.url = url;
 	}
-	
+
+	protected abstract String getMethod();
+	protected abstract String getPath();
+
+	protected abstract JakuParser<T> getParser();
+
 	public JakuResponse<T> send() throws IOException {
-		String url = jakuRequestData.getEndpointUrl();
+		String url = this.url + getPath();
 
 		try {
-			if (jakuRequestData.getMethod().equalsIgnoreCase(DISCOVERY)) {
+			if (getMethod().equalsIgnoreCase(DISCOVERY)) {
 				com.jaku.core.Request request = new DiscoveryRequest(url);
-				return new JakuResponse<>(generateResponseData(request.send().getData(), responseParser));
+				return new JakuResponse<>(generateResponseData(request.send().getData(), getParser()));
 			} else {
 				OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
 				okHttpBuilder.setConnectTimeout$okhttp(6000);
@@ -34,8 +37,8 @@ public final class JakuRequest<T> {
 
 				Request.Builder okHttpRequestBuilder = new okhttp3.Request.Builder()
 						.addHeader("User-Agent", "Jaku");
-				okHttpRequestBuilder.setUrl$okhttp(HttpUrl.parse(jakuRequestData.getEndpointUrl()));
-				okHttpRequestBuilder.setMethod$okhttp(jakuRequestData.getMethod());
+				okHttpRequestBuilder.setUrl$okhttp(HttpUrl.parse(url));
+				okHttpRequestBuilder.setMethod$okhttp(getMethod());
 				Request request = okHttpRequestBuilder.build();
 
 				Call call = okHttpClient.newCall(request);
@@ -46,7 +49,7 @@ public final class JakuRequest<T> {
 				if (responseBody != null) {
 					byte[] body = responseBody.bytes();
 					// System.out.println("Request response: " + new String(body));
-					return new JakuResponse<>(generateResponseData(body, responseParser));
+					return new JakuResponse<>(generateResponseData(body, getParser()));
 				} else {
 					return null;
 				}

@@ -2,10 +2,9 @@ package com.jaku.api;
 
 import java.io.IOException;
 
-import com.jaku.core.JakuRequest;
-import com.jaku.core.KeypressKeyValues;
+import com.jaku.core.KeyPressKeyValues;
 import com.jaku.request.KeydownRequest;
-import com.jaku.request.KeypressRequest;
+import com.jaku.request.KeyPressRequest;
 import com.jaku.request.KeyupRequest;
 
 public class KeyRequests {
@@ -14,48 +13,38 @@ public class KeyRequests {
 		
 	}
 	
-	public static void keypressRequest(String url, KeypressKeyValues keypressKeyValue) throws IOException {
-		KeypressRequest keypressRequest = new KeypressRequest(url, keypressKeyValue.getValue());
-		
-		JakuRequest<Void> request = new JakuRequest<>(keypressRequest);
+	public static void keyPressRequest(String url, KeyPressKeyValues keyPressKeyValue) throws IOException {
+		KeyPressRequest request = new KeyPressRequest(url, keyPressKeyValue.getValue());
 		request.send();
 	}
 	
-	public static void keypressRequest(String url, char literalCharacter) throws IOException {
-		KeypressRequest keypressRequest = new KeypressRequest(url, KeypressKeyValues.LIT_.getValue() + literalCharacter);
-		
-		JakuRequest<Void> request = new JakuRequest<>(keypressRequest);
+	public static void keyPressRequest(String url, char literalCharacter) throws IOException {
+		KeyPressRequest request = new KeyPressRequest(url, KeyPressKeyValues.LIT_.getValue() + literalCharacter);
 		request.send();
 	}
 	
-	public static void keypressRequest(String url, String word) throws IOException, InterruptedException {
+	public static void keyPressRequest(String url, String word) throws IOException, InterruptedException {
 		for (int i = 0; i < word.length(); i++) {
-			KeypressRequest keypressRequest = null;
+			KeyPressRequest request;
 			
 			if (word.charAt(i) != ' ') {
-			    keypressRequest = new KeypressRequest(url, KeypressKeyValues.LIT_.getValue() + word.charAt(i));
+				request = new KeyPressRequest(url, KeyPressKeyValues.LIT_.getValue() + word.charAt(i));
 			} else {
-				keypressRequest = new KeypressRequest(url, KeypressKeyValues.LIT_.getValue() + '+');
+				request = new KeyPressRequest(url, KeyPressKeyValues.LIT_.getValue() + '+');
 			}
-
-			JakuRequest<Void> request = new JakuRequest<>(keypressRequest);
 			request.send();
 			
 			Thread.sleep(100);
 		}
 	}
 	
-	public static void keydownRequest(String url, KeypressKeyValues keypressKeyValue) throws IOException {
-		KeydownRequest keydownRequest = new KeydownRequest(url, keypressKeyValue.getValue());
-		
-		JakuRequest<Void> request = new JakuRequest<>(keydownRequest);
+	public static void keyDownRequest(String url, KeyPressKeyValues keyPressKeyValue) throws IOException {
+		KeydownRequest request = new KeydownRequest(url, keyPressKeyValue.getValue());
 		request.send();
 	}
 	
-	public static void keyupRequest(String url, KeypressKeyValues keypressKeyValue) throws IOException {
-		KeyupRequest keyupRequest = new KeyupRequest(url, keypressKeyValue.getValue());
-		
-		JakuRequest<Void> request = new JakuRequest<>(keyupRequest);
+	public static void keyUpRequest(String url, KeyPressKeyValues keyPressKeyValue) throws IOException {
+		KeyupRequest request = new KeyupRequest(url, keyPressKeyValue.getValue());
 		request.send();
 	}
 }

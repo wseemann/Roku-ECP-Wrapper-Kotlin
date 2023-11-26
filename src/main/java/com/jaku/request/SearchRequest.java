@@ -1,17 +1,17 @@
 package com.jaku.request;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.jaku.core.JakuRequestData;
+import com.jaku.core.JakuRequest;
 import com.jaku.core.SearchTypeValues;
 import com.jaku.parser.JakuParser;
 
-final public class SearchRequest extends JakuRequestData {
+final public class SearchRequest extends JakuRequest<Void> {
 
 	private static final String KEYWORD = "keyword";
 	private static final String TITLE = "title";
@@ -85,17 +85,11 @@ final public class SearchRequest extends JakuRequestData {
 	}
 	
 	private String encodeParameter(String parameter) {
-		try {
-			return URLEncoder.encode(parameter, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
+		return URLEncoder.encode(parameter, StandardCharsets.UTF_8);
 	}
 
 	@Override
-	public JakuParser<?> getParser() {
+	public JakuParser<Void> getParser() {
 		return null;
 	}
 }

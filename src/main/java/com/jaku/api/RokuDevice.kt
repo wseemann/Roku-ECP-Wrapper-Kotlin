@@ -1,6 +1,6 @@
 package com.jaku.api
 
-import com.jaku.core.KeypressKeyValues
+import com.jaku.core.KeyPressKeyValues
 import com.jaku.core.SearchTypeValues
 import com.jaku.model.Channel
 import com.jaku.model.Device
@@ -16,7 +16,7 @@ interface RokuDevice {
     fun installRequest(appId: String)
 
     @Throws(IOException::class)
-    fun keyPressRequest(keypressKeyValue: KeypressKeyValues)
+    fun keyPressRequest(keyPressKeyValue: KeyPressKeyValues)
 
     @Throws(IOException::class)
     fun keyPressRequest(literalCharacter: Char)
@@ -25,10 +25,10 @@ interface RokuDevice {
     fun keyPressRequest(word: String)
 
     @Throws(IOException::class)
-    fun keyDownRequest(keypressKeyValue: KeypressKeyValues)
+    fun keyDownRequest(keyPressKeyValue: KeyPressKeyValues)
 
     @Throws(IOException::class)
-    fun keyUpRequest(keypressKeyValue: KeypressKeyValues)
+    fun keyUpRequest(keyPressKeyValue: KeyPressKeyValues)
 
     @Throws(IOException::class)
     fun launchAppIdRequest(appId: String)

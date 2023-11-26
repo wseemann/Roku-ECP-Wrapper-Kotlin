@@ -1,7 +1,6 @@
 package com.jaku.api
 
-import com.jaku.core.JakuRequest
-import com.jaku.core.KeypressKeyValues
+import com.jaku.core.KeyPressKeyValues
 import com.jaku.core.SearchTypeValues
 import com.jaku.model.Channel
 import com.jaku.model.Device
@@ -14,95 +13,82 @@ internal class RokuDeviceImpl(private val url: String) : RokuDevice {
     }
 
     override fun installRequest(appId: String) {
-        val installRequest = InstallRequest(url, appId)
-        val request = JakuRequest<Void>(installRequest)
+        val request = InstallRequest(url, appId)
         request.send()
     }
 
-    override fun keyPressRequest(keypressKeyValue: KeypressKeyValues) {
-        val keypressRequest = KeypressRequest(url, keypressKeyValue.value)
-        val request = JakuRequest<Void>(keypressRequest)
+    override fun keyPressRequest(keyPressKeyValue: KeyPressKeyValues) {
+        val request = KeyPressRequest(url, keyPressKeyValue.value)
         request.send()
     }
 
     override fun keyPressRequest(literalCharacter: Char) {
-        val keypressRequest = KeypressRequest(url, KeypressKeyValues.LIT_.value + literalCharacter)
-        val request = JakuRequest<Void>(keypressRequest)
+        val request = KeyPressRequest(url, KeyPressKeyValues.LIT_.value + literalCharacter)
         request.send()
     }
 
     override fun keyPressRequest(word: String) {
         for (i in 0 until word.length) {
-            val keypressRequest = if (word[i] != ' ') {
-                KeypressRequest(url, KeypressKeyValues.LIT_.value + word[i])
+            val request = if (word[i] != ' ') {
+                KeyPressRequest(url, KeyPressKeyValues.LIT_.value + word[i])
             } else {
-                KeypressRequest(url, KeypressKeyValues.LIT_.value + '+')
+                KeyPressRequest(url, KeyPressKeyValues.LIT_.value + '+')
             }
 
-            val request = JakuRequest<Void>(keypressRequest)
             request.send()
 
             Thread.sleep(100)
         }
     }
 
-    override fun keyDownRequest(keypressKeyValue: KeypressKeyValues) {
-        val keydownRequest = KeydownRequest(url, keypressKeyValue.value)
-        val request = JakuRequest<Void>(keydownRequest)
+    override fun keyDownRequest(keyPressKeyValue: KeyPressKeyValues) {
+        val request = KeydownRequest(url, keyPressKeyValue.value)
         request.send()
     }
 
-    override fun keyUpRequest(keypressKeyValue: KeypressKeyValues) {
-        val keyupRequest = KeyupRequest(url, keypressKeyValue.value)
-        val request = JakuRequest<Void>(keyupRequest)
+    override fun keyUpRequest(keyPressKeyValue: KeyPressKeyValues) {
+        val request = KeyupRequest(url, keyPressKeyValue.value)
         request.send()
     }
 
     override fun launchAppIdRequest(appId: String) {
-        val launchAppIdRequest = LaunchAppRequest(url, appId)
-        val request = JakuRequest<Void>(launchAppIdRequest)
+        val request = LaunchAppRequest(url, appId)
         request.send()
     }
 
     override fun queryAppsRequest(): List<Channel> {
-        val queryAppsRequest = QueryAppsRequest(url)
-        val request = JakuRequest<List<Channel>>(queryAppsRequest)
+        val request = QueryAppsRequest(url)
         val response = request.send()
         return response.responseData
     }
 
     override fun queryActiveAppRequest(): List<Channel> {
-        val queryActiveAppRequest = QueryActiveAppRequest(url)
-        val request = JakuRequest<List<Channel>>(queryActiveAppRequest)
+        val request = QueryActiveAppRequest(url)
         val response = request.send()
         return response.responseData
     }
 
     override fun queryDeviceInfo(): Device {
-        val queryActiveAppRequest = QueryDeviceInfoRequest(url)
-        val request = JakuRequest<Device>(queryActiveAppRequest)
+        val request = QueryDeviceInfoRequest(url)
         val response = request.send()
         return response.responseData
     }
 
     override fun queryIconRequest(appId: String): ByteArray {
-        val queryActiveAppRequest = QueryIconRequest(url, appId)
-        val request = JakuRequest<ByteArray>(queryActiveAppRequest)
+        val request = QueryIconRequest(url, appId)
         val response = request.send()
         return response.responseData
     }
 
     override fun queryMediaPlayer(url: String): Player {
-        val queryMediaPlayerRequest = QueryMediaPlayerRequest(url)
-        val request = JakuRequest<Player>(queryMediaPlayerRequest)
+        val request = QueryMediaPlayerRequest(url)
         val response = request.send()
         return response.responseData
     }
 
     override fun searchRequest(keyword: String, title: String, type: SearchTypeValues, tmsId: String, season: Int, showUnavailable: Boolean, matchAny: Boolean, providerId: Long, provider: String, launch: Boolean) {
-        val searchRequest = SearchRequest(url, keyword, title, type,
+        val request = SearchRequest(url, keyword, title, type,
                 tmsId, season, showUnavailable, matchAny, providerId, provider, launch)
-        val request = JakuRequest<Void>(searchRequest)
         request.send()
     }
 }

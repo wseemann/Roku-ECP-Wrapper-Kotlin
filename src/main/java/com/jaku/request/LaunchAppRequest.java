@@ -1,9 +1,9 @@
 package com.jaku.request;
 
-import com.jaku.core.JakuRequestData;
+import com.jaku.core.JakuRequest;
 import com.jaku.parser.JakuParser;
 
-final public class LaunchAppRequest extends JakuRequestData {
+final public class LaunchAppRequest extends JakuRequest<Void> {
 
 	private final String appId;
 	
@@ -23,7 +23,7 @@ final public class LaunchAppRequest extends JakuRequestData {
 	}
 
 	@Override
-	public JakuParser<?> getParser() {
+	public JakuParser<Void> getParser() {
 		return null;
 	}
 }

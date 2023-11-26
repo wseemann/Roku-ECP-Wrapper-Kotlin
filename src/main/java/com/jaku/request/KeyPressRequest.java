@@ -1,13 +1,13 @@
 package com.jaku.request;
 
-import com.jaku.core.JakuRequestData;
+import com.jaku.core.JakuRequest;
 import com.jaku.parser.JakuParser;
 
-final public class KeypressRequest extends JakuRequestData {
+final public class KeyPressRequest extends JakuRequest<Void> {
 
 	private final String key;
 	
-	public KeypressRequest(String url, String key) {
+	public KeyPressRequest(String url, String key) {
 		super(url);		
 		this.key = key;
 	}
@@ -23,7 +23,7 @@ final public class KeypressRequest extends JakuRequestData {
 	}
 
 	@Override
-	public JakuParser<?> getParser() {
+	public JakuParser<Void> getParser() {
 		return null;
 	}
 }

@@ -16,7 +16,7 @@ public final class AppsParser extends JakuParser<List<Channel>> {
 
 	@Override
 	public List<Channel> parse(byte [] body) throws IOException, JDOMException {
-		List<Channel> channels = new ArrayList<Channel>();
+		List<Channel> channels = new ArrayList<>();
 
 		if (body == null) {
 			return channels;

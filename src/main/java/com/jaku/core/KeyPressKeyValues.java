@@ -1,6 +1,6 @@
 package com.jaku.core;
 
-public enum KeypressKeyValues {
+public enum KeyPressKeyValues {
 	HOME("Home"),
 	REV("Rev"),
 	FWD("Fwd"),
@@ -34,7 +34,7 @@ public enum KeypressKeyValues {
 	
 	private final String method;
 
-	KeypressKeyValues(String method) {
+	KeyPressKeyValues(String method) {
 		this.method = method;
 	}
 
