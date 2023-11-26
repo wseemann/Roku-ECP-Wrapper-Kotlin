@@ -4,7 +4,7 @@ Jaku
 Overview
 --------
 
-Jaku is a Java wrapper/client for the [Roku External Control API](https://sdkdocs.roku.com/display/sdkdoc/External+Control+API/).
+Jaku is a Kotlin wrapper/client for the [Roku External Control API](https://developer.roku.com/docs/developer-program/dev-tools/external-control-api.md).
 
 Key Features:
 --------
@@ -14,6 +14,7 @@ Jaku includes helper functions to:
 #### Query
 * List all channels and active channels
 * Obtain device information
+* Obtain player state information
 * Retrieve application icons
 
 #### Control
@@ -34,9 +35,21 @@ Usage
 
 Sample code:
 
-##### Retrieve a list of available channels on a device
+##### Discover all Roku devices on the local network
 
-    List<Channel> channels = QueryRequests.queryAppsRequest(ROKU_DEVICE_IP_ADDRESS);
+    List<RokuDevice> rokuDevices = DeviceRequests.discoverDevices();
+
+##### or, create a new device if you already know the devices IP address
+
+    rokuDevice = RokuDevice.create("<IP address>");
+    
+    // For example:
+    
+    rokuDevice = RokuDevice.create("http://192.168.1.20:8060");
+
+##### Once you have a valid RokuDevice object you can use the class to perform actions. For example, retrieve a list of available channels on a device
+
+    List<Channel> channels = rokuDevice.queryAppsRequest();
 		
     for (Channel channel: channels) {
         // print the channel names
@@ -45,13 +58,13 @@ Sample code:
 
 ##### Start/pause playback on a device
 
-    KeyRequests.keypressRequest(ROKU_DEVICE_IP_ADDRESS, KeypressKeyValues.PLAY);
+    rokuDevice.keyPressRequest(KeyPressKeyValues.PLAY);
 
 License
 ------------
 
 ```
-Jaku: A Java wrapper/client for the Roku External Control API.
+Jaku: A Kotlin wrapper/client for the Roku External Control API.
 
 Copyright 2023 William Seemann
 
