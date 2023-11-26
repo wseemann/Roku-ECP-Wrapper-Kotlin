@@ -10,12 +10,15 @@ plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
     id 'org.jetbrains.kotlin.jvm'
+    id 'maven-publish'
 }
+
+version = 1.7
 
 jar {
     manifest {
         attributes 'Implementation-Title': 'jaku-',
-                   'Implementation-Version': '1.7'
+                   'Implementation-Version': version
     }
 }
 
@@ -28,6 +31,18 @@ java {
 kotlin {
     jvmToolchain {
         languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.jaku'
+            artifactId = 'jaku'
+            version = version
+
+            from components.java
+        }
     }
 }
 
