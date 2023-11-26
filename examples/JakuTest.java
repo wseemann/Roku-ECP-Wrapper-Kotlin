@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.jaku.api.*;
-import com.jaku.core.KeypressKeyValues;
+import com.jaku.core.KeyPressKeyValues;
 import com.jaku.model.Channel;
 import com.jaku.model.Device;
 
@@ -18,8 +18,7 @@ public class JakuTest {
 
 	public static void main(String [] args) {
 		try {
-			RokuDeviceFactory rokuDeviceFactory = new RokuDeviceFactoryImpl();
-			rokuDevice = rokuDeviceFactory.create(ROKU_DEVICE_IP_ADDRESS);
+			rokuDevice = RokuDevice.Companion.create(ROKU_DEVICE_IP_ADDRESS);
 
 			testKeypress();
 			testKeydown();
@@ -35,15 +34,15 @@ public class JakuTest {
 	}
 
 	private static void testKeypress() throws IOException {
-		rokuDevice.keyPressRequest(KeypressKeyValues.INFO);
+		rokuDevice.keyPressRequest(KeyPressKeyValues.INFO);
 	}
 
 	private static void testKeydown() throws IOException {
-		rokuDevice.keyDownRequest(KeypressKeyValues.INFO);
+		rokuDevice.keyDownRequest(KeyPressKeyValues.INFO);
 	}
 
 	private static void testKeyup() throws IOException {
-		rokuDevice.keyUpRequest(KeypressKeyValues.INFO);
+		rokuDevice.keyUpRequest(KeyPressKeyValues.INFO);
 	}
 
 	private static void queryApps() throws IOException {
