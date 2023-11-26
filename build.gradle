@@ -17,7 +17,7 @@ version = 1.7
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'jaku-',
+        attributes 'Implementation-Title': 'Roku ECP Wrapper Kotlin',
                    'Implementation-Version': version
     }
 }
