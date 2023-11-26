@@ -11,7 +11,7 @@ import com.jaku.model.Device;
 
 import javax.imageio.ImageIO;
 
-public class JakuTest {
+public class Test {
 
 	private static final String ROKU_DEVICE_IP_ADDRESS = "";
 	private static RokuDevice rokuDevice;
