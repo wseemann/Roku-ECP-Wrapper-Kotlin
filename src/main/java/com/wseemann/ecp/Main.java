@@ -1,3 +1,5 @@
+package com.wseemann.ecp;
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -7,19 +9,22 @@ import java.util.List;
 import com.wseemann.ecp.core.KeyPressKeyValues;
 import com.wseemann.ecp.model.Channel;
 import com.wseemann.ecp.model.Device;
+import com.wseemann.ecp.api.DeviceRequests;
+import com.wseemann.ecp.api.RokuDevice;
 
 import javax.imageio.ImageIO;
 
-public class Test {
+public class Main {
 
-	private static final String ROKU_DEVICE_IP_ADDRESS = "";
-	private static RokuDevice rokuDevice;
+	private static final String ROKU_DEVICE_IP_ADDRESS = "http://192.168.50.101:8060";
+    private static RokuDevice rokuDevice;
 
 	public static void main(String [] args) {
 		try {
+			List<RokuDevice> rokuDevices = DeviceRequests.discoverDevices();
 			rokuDevice = RokuDevice.Companion.create(ROKU_DEVICE_IP_ADDRESS);
 
-			testKeypress();
+			testKeyPress();
 			testKeydown();
 			testKeyup();
 			queryApps();
@@ -27,12 +32,12 @@ public class Test {
 			queryDeviceInfo();
 			launchAppId();
 			queryIcon();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 
-	private static void testKeypress() throws IOException {
+	private static void testKeyPress() throws IOException {
 		rokuDevice.keyPressRequest(KeyPressKeyValues.INFO);
 	}
 
@@ -73,8 +78,10 @@ public class Test {
 	private static void queryIcon() throws IOException {
 		byte [] data = rokuDevice.queryIconRequest("1457");
 
-		File outputfile = new File("<some path>");
-		BufferedImage image = ImageIO.read( new ByteArrayInputStream(data));
-		ImageIO.write(image, "png", outputfile);
+		if (data.length > 0) {
+			File outputfile = new File("<some path>");
+			BufferedImage image = ImageIO.read(new ByteArrayInputStream(data));
+			ImageIO.write(image, "png", outputfile);
+		}
 	}
 }
