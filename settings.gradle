@@ -15,3 +15,5 @@ plugins {
  */
 
 rootProject.name = 'Roku-ECP-Wrapper-Kotlin'
+include 'ECPTest'
+

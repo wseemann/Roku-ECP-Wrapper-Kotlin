@@ -27,7 +27,11 @@ Roku ECP Wrapper includes helper functions to:
 Install
 --------
 
-TBA
+Add the following maven dependency to your project's `build.gradle` file:
+
+    dependencies {
+        implementation 'com.github.wseemann:roku-ecp-wrapper-kotlin:1.0.0'
+    }
 
 
 Usage
