@@ -11,9 +11,10 @@ plugins {
     id 'java-library'
     id 'org.jetbrains.kotlin.jvm'
     id 'maven-publish'
+    id 'signing'
 }
 
-version = 1.7
+version = "1.0.0"
 
 jar {
     manifest {
@@ -34,6 +35,23 @@ kotlin {
 }
 
 publishing {
+    repositories {
+        maven {
+            name "sonatype"
+            url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            credentials {
+                username = project.properties["sonatype_username"]
+                password = project.properties["sonatype_password"]
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications
+}
+
+publishing {
     publications {
         maven(MavenPublication) {
             groupId = 'com.github.wseemann'
@@ -41,6 +59,31 @@ publishing {
             version = version
 
             from components.java
+
+            pom {
+                name = 'Roku-ECP-Wrapper-Kotlin'
+                description = 'Roku ECP Wrapper is a Kotlin based wrapper for the Roku External Control Protocol (ECP).'
+                url = 'https://github.com/wseemann/Roku-ECP-Wrapper-Kotlin'
+                packaging = 'jar'
+                licenses {
+                    license {
+                        name = 'Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0'
+                        distribution = 'repo'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'wseemann'
+                        name = 'William Seemann'
+                    }
+                }
+                scm {
+                    connection = 'scm:hg:https://github.com/wseemann/Roku-ECP-Wrapper-Kotlin'
+                    developerConnection = 'scm:hg:https://github.com/wseemann/Roku-ECP-Wrapper-Kotlin'
+                    url = 'https://github.com/wseemann/Roku-ECP-Wrapper-Kotlin'
+                }
+            }
         }
     }
 }
