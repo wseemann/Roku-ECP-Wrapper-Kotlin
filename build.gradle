@@ -25,7 +25,6 @@ jar {
 java {
     withSourcesJar()
     withJavadocJar()
-    // and/or analogously use “withJavadocJar()” to get a “javadocJar” task
 }
 
 kotlin {
@@ -37,8 +36,8 @@ kotlin {
 publishing {
     publications {
         maven(MavenPublication) {
-            groupId = 'com.jaku'
-            artifactId = 'jaku'
+            groupId = 'com.github.wseemann'
+            artifactId = 'roku-ecp-wrapper-kotlin'
             version = version
 
             from components.java
