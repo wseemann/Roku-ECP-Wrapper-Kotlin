@@ -60,8 +60,6 @@ final public class SearchRequest extends ECPRequest<Void> {
 	        it.remove();
 	    }
 		
-		System.out.println(queryParameters);
-		
 		return "/search/browse?" + queryParameters;
 	}
 	

@@ -2,6 +2,7 @@ package com.wseemann.ecp.core;
 
 import java.io.IOException;
 
+import com.wseemann.ecp.logging.Logger;
 import com.wseemann.ecp.parser.ECPResponseParser;
 import okhttp3.*;
 import okhttp3.Request;
@@ -48,7 +49,7 @@ public abstract class ECPRequest<T> {
 
 				if (responseBody != null) {
 					byte[] body = responseBody.bytes();
-					// System.out.println("Request response: " + new String(body));
+					Logger.INSTANCE.debug("ECP request response: " + new String(body));
 					return new ECPResponse<>(generateResponseData(body, getParser()));
 				} else {
 					return null;
