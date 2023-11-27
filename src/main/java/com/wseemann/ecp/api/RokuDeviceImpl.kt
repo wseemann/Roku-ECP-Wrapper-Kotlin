@@ -59,31 +59,31 @@ internal class RokuDeviceImpl(private val url: String) : RokuDevice {
     override fun queryAppsRequest(): List<Channel> {
         val request = QueryAppsRequest(url)
         val response = request.send()
-        return response.responseData
+        return response!!.responseData
     }
 
     override fun queryActiveAppRequest(): List<Channel> {
         val request = QueryActiveAppRequest(url)
         val response = request.send()
-        return response.responseData
+        return response!!.responseData
     }
 
     override fun queryDeviceInfo(): Device {
         val request = QueryDeviceInfoRequest(url)
         val response = request.send()
-        return response.responseData
+        return response!!.responseData
     }
 
     override fun queryIconRequest(appId: String): ByteArray {
         val request = QueryIconRequest(url, appId)
         val response = request.send()
-        return response.responseData
+        return response!!.responseData
     }
 
     override fun queryMediaPlayer(url: String): Player {
         val request = QueryMediaPlayerRequest(url)
         val response = request.send()
-        return response.responseData
+        return response!!.responseData
     }
 
     override fun searchRequest(keyword: String, title: String, type: SearchTypeValues, tmsId: String, season: Int, showUnavailable: Boolean, matchAny: Boolean, providerId: Long, provider: String, launch: Boolean) {
