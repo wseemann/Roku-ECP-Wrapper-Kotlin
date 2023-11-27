@@ -9,10 +9,12 @@ import org.jdom2.JDOMException
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-internal abstract class ECPRequest<T> constructor(private val url: String) {
+internal abstract class ECPRequest<T>(private val url: String) {
 
     protected abstract fun getMethod(): String
+
     protected abstract fun getPath(): String
+
     protected abstract fun getParser(): ECPResponseParser<T>?
 
     @Throws(IOException::class)
