@@ -56,7 +56,9 @@ internal abstract class ECPRequest<T>(private val url: String) {
                 }
             }
         } catch (ex: JDOMException) {
-            throw IOException()
+            throw IOException(ex)
+        } catch (ex: IOException) {
+            throw IOException(ex)
         }
     }
 
