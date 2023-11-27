@@ -1,10 +1,13 @@
 package com.wseemann.ecp.core
 
+import com.wseemann.ecp.api.ResponseCallback
 import com.wseemann.ecp.logging.Logger.debug
 import com.wseemann.ecp.parser.ECPResponseParser
+import kotlinx.coroutines.*
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.jdom2.JDOMException
 import java.io.IOException
 import java.util.concurrent.TimeUnit
@@ -31,10 +34,12 @@ internal abstract class ECPRequest<T>(private val url: String) {
                         .readTimeout(6000, TimeUnit.MILLISECONDS)
                         .build()
 
+                val body = if (getMethod() == "POST") "".toRequestBody() else null
+
                 val request = Request.Builder()
                         .addHeader("User-Agent", "Roku-ECP-Wrapper-Kotlin")
                         .url(url.toHttpUrl())
-                        .method(getMethod(), null)
+                        .method(getMethod(), body)
                         .build()
 
                 val call = okHttpClient.newCall(request)
@@ -52,6 +57,22 @@ internal abstract class ECPRequest<T>(private val url: String) {
             }
         } catch (ex: JDOMException) {
             throw IOException()
+        }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
+    fun sendAsync(callback: ResponseCallback<T>) {
+        CoroutineScope(newSingleThreadContext("")).launch {
+            try {
+                val response = send()
+                withContext(Dispatchers.Default) {
+                    callback.onSuccess(response?.responseData)
+                }
+            } catch (ex: IOException) {
+                withContext(Dispatchers.Default) {
+                    callback.onError(ex)
+                }
+            }
         }
     }
 

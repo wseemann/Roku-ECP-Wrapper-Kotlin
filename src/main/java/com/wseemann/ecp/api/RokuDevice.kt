@@ -8,7 +8,7 @@ import com.wseemann.ecp.model.Player
 import com.wseemann.ecp.request.*
 import java.io.IOException
 
-interface RokuDevice {
+interface RokuDevice : AsyncRokuDevice {
 
     fun getHost(): String
 
