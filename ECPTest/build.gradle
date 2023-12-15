@@ -16,7 +16,7 @@ kotlin {
 }
 
 dependencies {
-    implementation "com.github.wseemann:roku-ecp-wrapper-kotlin:1.0.0"
+    implementation "com.github.wseemann:roku-ecp-wrapper-kotlin:1.1.0"
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
 }
 

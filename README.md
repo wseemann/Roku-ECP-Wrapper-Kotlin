@@ -30,7 +30,7 @@ Install
 Add the following maven dependency to your project's `build.gradle` file:
 
     dependencies {
-        implementation 'com.github.wseemann:roku-ecp-wrapper-kotlin:1.0.0'
+        implementation 'com.github.wseemann:roku-ecp-wrapper-kotlin:1.1.0'
     }
 
 
