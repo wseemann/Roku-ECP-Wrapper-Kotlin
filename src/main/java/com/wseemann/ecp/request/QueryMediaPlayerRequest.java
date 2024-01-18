@@ -4,6 +4,7 @@ import com.wseemann.ecp.core.ECPRequest;
 import com.wseemann.ecp.model.Player;
 import com.wseemann.ecp.parser.ECPResponseParser;
 import com.wseemann.ecp.parser.PlayerParser;
+import org.jetbrains.annotations.NotNull;
 
 final public class QueryMediaPlayerRequest extends ECPRequest<Player> {
 
@@ -12,12 +13,12 @@ final public class QueryMediaPlayerRequest extends ECPRequest<Player> {
     }
 
     @Override
-    public String getPath() {
+    public @NotNull String getPath() {
         return "/query/media-player";
     }
 
     @Override
-    public String getMethod() {
+    public @NotNull String getMethod() {
         return "GET";
     }
 

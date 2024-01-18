@@ -11,6 +11,12 @@ import org.jdom2.input.SAXBuilder;
 
 public final class DeviceParser extends ECPResponseParser<Device> {
 
+    private final String host;
+
+    public DeviceParser(String host) {
+        this.host = host;
+    }
+
 	@Override
 	public Device parse(byte [] body) throws IOException, JDOMException {
 		Device device = new Device();
@@ -24,6 +30,7 @@ public final class DeviceParser extends ECPResponseParser<Device> {
         Document document = builder.build(new StringReader(new String(body)));
         Element rootNode = document.getRootElement();
 
+        device.setHost(host);
         device.setUdn(checkValue(rootNode.getChild("udn")));
         device.setSerialNumber(checkValue(rootNode.getChild("serial-number")));
         device.setDeviceId(checkValue(rootNode.getChild("device-id")));

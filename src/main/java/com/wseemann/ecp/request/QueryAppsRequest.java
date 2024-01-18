@@ -4,6 +4,7 @@ import com.wseemann.ecp.core.ECPRequest;
 import com.wseemann.ecp.model.Channel;
 import com.wseemann.ecp.parser.AppsParser;
 import com.wseemann.ecp.parser.ECPResponseParser;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -15,12 +16,12 @@ final public class QueryAppsRequest extends ECPRequest<List<Channel>> {
 
 
 	@Override
-	public String getPath() {
+	public @NotNull String getPath() {
 		return "/query/apps";
 	}
 	
 	@Override
-	public String getMethod() {
+	public @NotNull String getMethod() {
 		return "GET";
 	}
 

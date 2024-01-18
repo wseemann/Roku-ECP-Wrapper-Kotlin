@@ -4,6 +4,7 @@ import com.wseemann.ecp.core.ECPRequest;
 import com.wseemann.ecp.model.Device;
 import com.wseemann.ecp.parser.DeviceDiscoveryParser;
 import com.wseemann.ecp.parser.ECPResponseParser;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -14,12 +15,12 @@ final public class DiscoveryRequest extends ECPRequest<List<Device>> {
 	}
 
 	@Override
-	public String getPath() {
+	public @NotNull String getPath() {
 		return "";
 	}
 
 	@Override
-	public String getMethod() {
+	public @NotNull String getMethod() {
 		return "DISCOVERY";
 	}
 

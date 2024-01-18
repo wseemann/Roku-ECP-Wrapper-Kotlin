@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import com.wseemann.ecp.core.ECPRequest;
 import com.wseemann.ecp.core.SearchTypeValues;
 import com.wseemann.ecp.parser.ECPResponseParser;
+import org.jetbrains.annotations.NotNull;
 
 final public class SearchRequest extends ECPRequest<Void> {
 
@@ -43,7 +44,7 @@ final public class SearchRequest extends ECPRequest<Void> {
 	}
 	
 	@Override
-	public String getPath() {
+	public @NotNull String getPath() {
 		StringBuilder queryParameters = new StringBuilder();
 		
 	    Iterator<Entry<String, Object>> it = parameters.entrySet().iterator();
@@ -64,7 +65,7 @@ final public class SearchRequest extends ECPRequest<Void> {
 	}
 	
 	@Override
-	public String getMethod() {
+	public @NotNull String getMethod() {
 		return "POST";
 	}
 	

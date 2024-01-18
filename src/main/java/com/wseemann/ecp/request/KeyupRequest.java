@@ -2,6 +2,7 @@ package com.wseemann.ecp.request;
 
 import com.wseemann.ecp.core.ECPRequest;
 import com.wseemann.ecp.parser.ECPResponseParser;
+import org.jetbrains.annotations.NotNull;
 
 final public class KeyupRequest extends ECPRequest<Void> {
 
@@ -13,12 +14,12 @@ final public class KeyupRequest extends ECPRequest<Void> {
 	}
 	
 	@Override
-	public String getPath() {
+	public @NotNull String getPath() {
 		return "/keyup/" + key;
 	}
 	
 	@Override
-	public String getMethod() {
+	public @NotNull String getMethod() {
 		return "POST";
 	}
 

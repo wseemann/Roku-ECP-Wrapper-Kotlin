@@ -4,6 +4,7 @@ import com.wseemann.ecp.core.ECPRequest;
 import com.wseemann.ecp.model.Device;
 import com.wseemann.ecp.parser.DeviceParser;
 import com.wseemann.ecp.parser.ECPResponseParser;
+import org.jetbrains.annotations.NotNull;
 
 final public class QueryDeviceInfoRequest extends ECPRequest<Device> {
 
@@ -12,17 +13,17 @@ final public class QueryDeviceInfoRequest extends ECPRequest<Device> {
 	}
 
 	@Override
-	public String getPath() {
+	public @NotNull String getPath() {
 		return "/query/device-info";
 	}
 	
 	@Override
-	public String getMethod() {
+	public @NotNull String getMethod() {
 		return "GET";
 	}
 
 	@Override
 	public ECPResponseParser<Device> getParser() {
-		return new DeviceParser();
+		return new DeviceParser(getUrl());
 	}
 }

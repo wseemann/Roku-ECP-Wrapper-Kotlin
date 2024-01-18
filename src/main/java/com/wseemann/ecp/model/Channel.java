@@ -11,7 +11,6 @@ public class Channel {
 	public Channel() {
 		
 	}
-
 	
 	public Channel(String id, String title, String type, String version, String imageUrl) {
 		this.mId = id;

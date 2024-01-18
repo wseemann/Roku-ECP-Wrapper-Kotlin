@@ -14,6 +14,10 @@ import java.util.concurrent.TimeUnit
 
 internal abstract class ECPRequest<T>(private val url: String) {
 
+    protected fun getUrl(): String {
+        return url
+    }
+
     protected abstract fun getMethod(): String
 
     protected abstract fun getPath(): String

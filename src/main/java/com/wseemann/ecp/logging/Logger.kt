@@ -1,23 +1,24 @@
 package com.wseemann.ecp.logging
 
-import org.apache.logging.log4j.LogManager
-
 internal object Logger {
-    private val logger = LogManager.getLogger()
+
+    var logDebug = false
 
     fun debug(message: String) {
-        logger.debug(message)
+        if (logDebug) {
+            println(message)
+        }
     }
 
     fun info(message: String) {
-        logger.info(message)
+        println(message)
     }
 
     fun error(message: String) {
-        logger.error(message)
+        println(message)
     }
 
     fun error(ex: Exception) {
-        logger.error(ex)
+        println(ex.message)
     }
 }
