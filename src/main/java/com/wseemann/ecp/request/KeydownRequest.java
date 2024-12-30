@@ -9,7 +9,7 @@ final public class KeydownRequest extends ECPRequest<Void> {
 	private final String key;
 	
 	public KeydownRequest(String url, String key) {
-		super(url);		
+		super(url, true);
 		this.key = key;
 	}
 	
