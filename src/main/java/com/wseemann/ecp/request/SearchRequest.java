@@ -1,5 +1,6 @@
 package com.wseemann.ecp.request;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
@@ -84,7 +85,11 @@ final public class SearchRequest extends ECPRequest<Void> {
 	}
 	
 	private String encodeParameter(String parameter) {
-		return URLEncoder.encode(parameter, StandardCharsets.UTF_8);
+		try {
+		    return URLEncoder.encode(parameter, StandardCharsets.UTF_8.name());
+		} catch (UnsupportedEncodingException e) {
+		    return parameter;
+		}
 	}
 
 	@Override
