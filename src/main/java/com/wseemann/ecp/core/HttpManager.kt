@@ -13,8 +13,8 @@ internal class HttpManager private constructor() {
 
     private val okHttpClient = OkHttpClient.Builder()
 	.connectionPool(ConnectionPool(0, 1, TimeUnit.SECONDS))
-	.connectTimeout(40, TimeUnit.MILLISECONDS)
-	.readTimeout(40, TimeUnit.MILLISECONDS)
+	.connectTimeout(2000, TimeUnit.MILLISECONDS)
+	.readTimeout(2000, TimeUnit.MILLISECONDS)
 	.build()
 
     private val requestCache = HashMap<String, Request>()
