@@ -13,6 +13,8 @@ import java.io.IOException
 internal abstract class ECPRequest<T>(private val url: String,
 				      private val useRequestCache: Boolean = false) {
 
+    private var http_request: Request? = null
+
     constructor(url: String): this(url, false)
 
     protected fun getUrl(): String {
@@ -34,7 +36,10 @@ internal abstract class ECPRequest<T>(private val url: String,
                 val request = DiscoveryRequest(url)
                 return ECPResponse(generateResponseData(request.send().data, getParser()))
             } else {
-		val responseBody = HttpManager.getInstance().execute(url, getMethod(), useRequestCache)
+		val http_manager = HttpManager.getInstance()
+		if (http_request == null)
+		    http_request = http_manager.buildRequest(url, getMethod(), useRequestCache)
+		val responseBody = http_manager.execute(http_request!!)
 		if (responseBody == null)
 		    return null
 

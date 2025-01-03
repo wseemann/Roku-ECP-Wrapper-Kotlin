@@ -12,14 +12,14 @@ import okhttp3.RequestBody.Companion.toRequestBody
 class HttpManager private constructor() {
 
     private val okHttpClient = OkHttpClient.Builder()
-	.connectionPool(ConnectionPool(20, 1, TimeUnit.SECONDS))
+	.connectionPool(ConnectionPool(0, 1, TimeUnit.SECONDS))
 	.connectTimeout(40, TimeUnit.MILLISECONDS)
 	.readTimeout(40, TimeUnit.MILLISECONDS)
 	.build()
 
     private val requestCache = HashMap<String, Request>()
 
-    private fun buildRequest(url: String, method: String, useRequestCache: Boolean): Request {
+    public fun buildRequest(url: String, method: String, useRequestCache: Boolean): Request {
 	if (useRequestCache) {
 	    val request = requestCache.get(url)
 	    if (request != null)
@@ -37,11 +37,15 @@ class HttpManager private constructor() {
 	return request
     }
 
-    public fun execute(url: String, method: String, useRequestCache: Boolean): ResponseBody? {
-	val request = buildRequest(url, method, useRequestCache)
+    public fun execute(request: Request): ResponseBody? {
 	val call = okHttpClient.newCall(request)
 	val response = call.execute()
 	return response.body
+    }
+
+    public fun execute(url: String, method: String, useRequestCache: Boolean): ResponseBody? {
+	val request = buildRequest(url, method, useRequestCache)
+	return execute(request)
     }
 
     companion object {
