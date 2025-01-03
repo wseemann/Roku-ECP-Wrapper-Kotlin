@@ -9,7 +9,7 @@ import okhttp3.ResponseBody
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 
-class HttpManager private constructor() {
+internal class HttpManager private constructor() {
 
     private val okHttpClient = OkHttpClient.Builder()
 	.connectionPool(ConnectionPool(0, 1, TimeUnit.SECONDS))
