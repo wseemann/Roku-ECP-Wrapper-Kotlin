@@ -12,13 +12,9 @@ final public class KeydownRequest extends ECPRequest<Void> {
 
 	private final String key;
 	
-	public KeydownRequest(String url, String key) {
-		super(url);		
-		try {
-		    key = URLEncoder.encode(key, StandardCharsets.UTF_8.name());
-		} catch (UnsupportedEncodingException e) {
-		}
-		this.key = key;
+	public KeydownRequest(String url, String key) throws UnsupportedEncodingException {
+		super(url);
+		this.key = URLEncoder.encode(key, StandardCharsets.UTF_8.name());
 	}
 	
 	@Override
