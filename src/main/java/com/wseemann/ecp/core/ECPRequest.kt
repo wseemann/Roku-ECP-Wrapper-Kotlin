@@ -3,14 +3,15 @@ package com.wseemann.ecp.core
 import com.wseemann.ecp.api.ResponseCallback
 import com.wseemann.ecp.logging.Logger.debug
 import com.wseemann.ecp.parser.ECPResponseParser
-import kotlinx.coroutines.*
-import okhttp3.HttpUrl.Companion.toHttpUrl
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.withContext
 import org.jdom2.JDOMException
 import java.io.IOException
-import java.util.concurrent.TimeUnit
 
 internal abstract class ECPRequest<T>(private val url: String) {
 
@@ -33,23 +34,10 @@ internal abstract class ECPRequest<T>(private val url: String) {
                 val request = DiscoveryRequest(url)
                 return ECPResponse(generateResponseData(request.send().data, getParser()))
             } else {
-                val okHttpClient = OkHttpClient.Builder()
-                        .connectTimeout(6000, TimeUnit.MILLISECONDS)
-                        .readTimeout(6000, TimeUnit.MILLISECONDS)
-                        .build()
-
-                val body = if (getMethod() == "POST") "".toRequestBody() else null
-
-                val request = Request.Builder()
-                        .addHeader("User-Agent", "Roku-ECP-Wrapper-Kotlin")
-                        .url(url.toHttpUrl())
-                        .method(getMethod(), body)
-                        .build()
-
-                val call = okHttpClient.newCall(request)
-                val response = call.execute()
-
-                val responseBody = response.body
+                val requestManager = RequestManager.getInstance()
+                val ecpRequest = requestManager.buildRequest(url = url, method = getMethod())
+                val response = requestManager.execute(ecpRequest)
+                val responseBody = response?.body
 
                 if (responseBody != null) {
                     val body = responseBody.bytes()
