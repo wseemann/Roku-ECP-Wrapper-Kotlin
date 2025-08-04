@@ -14,7 +14,7 @@ final public class KeyPressRequest extends ECPRequest<Void> {
 	
 	public KeyPressRequest(String url, String key) throws UnsupportedEncodingException {
 		super(url);
-		this.key = URLEncoder.encode(key, StandardCharsets.UTF_8.name());
+		this.key = URLEncoder.encode(key, StandardCharsets.UTF_8);
 	}
 	
 	@Override

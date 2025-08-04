@@ -85,12 +85,8 @@ final public class SearchRequest extends ECPRequest<Void> {
 	}
 	
 	private String encodeParameter(String parameter) {
-		try {
-		    return URLEncoder.encode(parameter, StandardCharsets.UTF_8.name());
-		} catch (UnsupportedEncodingException e) {
-		    return parameter;
-		}
-	}
+        return URLEncoder.encode(parameter, StandardCharsets.UTF_8);
+    }
 
 	@Override
 	public ECPResponseParser<Void> getParser() {
