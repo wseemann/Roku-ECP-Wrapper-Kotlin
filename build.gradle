@@ -28,12 +28,16 @@ kotlin {
 publishing {
     repositories {
         maven {
-            name "sonatype"
-            url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            name "ossrh-staging-api"
+            url "https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/"
             credentials {
-                username = project.properties["sonatype_username"]
-                password = project.properties["sonatype_password"]
+                username = project.findProperty("sonatype_username")
+                password = project.findProperty("sonatype_password")
             }
+        }
+        maven {
+            name "local"
+            url = uri("${buildDir}/repo")
         }
     }
 }
@@ -79,9 +83,40 @@ publishing {
     }
 }
 
+// Finalize Upload to Central Portal
+// https://central.sonatype.org/publish/publish-portal-ossrh-staging-api/#ensuring-deployment-visibility-in-the-central-publisher-portal
+tasks.register("finalizeSonatypeUpload") {
+    println("Running finalizeSonatypeUpload...")
+    group = "publishing"
+    description = "Call Sonatype Central to finalize artifact upload"
+
+    dependsOn "publish"
+
+    doLast {
+        def namespace = "com.github.wseemann"
+        def token = project.findProperty("sonatype_password")
+
+        if (!namespace || !token) {
+            throw new GradleException("Missing 'sonatype_namespace' or 'sonatype_token' project properties")
+        }
+
+        def url = "https://central.sonatype.com/api/v1/manual/upload/defaultRepository/${namespace}"
+        println "Finalizing upload with POST to: $url"
+
+        def process = ["curl", "-X", "POST", url, "-H", "Authorization: Bearer $token"].execute()
+        def output = new StringBuffer()
+        process.consumeProcessOutput(output, output)
+        process.waitFor()
+
+        if (process.exitValue() != 0) {
+            throw new GradleException("Finalization failed: ${output.toString()}")
+        }
+
+        println "Sonatype upload finalized successfully"
+    }
+}
+
 repositories {
-    // Use jcenter for resolving dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     mavenCentral()
 }
 
