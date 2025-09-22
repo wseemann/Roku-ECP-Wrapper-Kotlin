@@ -2,7 +2,6 @@ package com.wseemann.ecp.request;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -45,7 +44,7 @@ final public class SearchRequest extends ECPRequest<Void> {
 	}
 	
 	@Override
-	public @NotNull String getPath() {
+	public @NotNull String getPath() throws UnsupportedEncodingException {
 		StringBuilder queryParameters = new StringBuilder();
 		
 	    Iterator<Entry<String, Object>> it = parameters.entrySet().iterator();
@@ -70,7 +69,7 @@ final public class SearchRequest extends ECPRequest<Void> {
 		return "POST";
 	}
 	
-	private String addQueryParameter(String key, Object value) {
+	private String addQueryParameter(String key, Object value) throws UnsupportedEncodingException {
 		if (value == null) {
 		    return null;
 		}
@@ -84,8 +83,8 @@ final public class SearchRequest extends ECPRequest<Void> {
 		return queryParameter.toString();
 	}
 	
-	private String encodeParameter(String parameter) {
-        return URLEncoder.encode(parameter, StandardCharsets.UTF_8);
+	private String encodeParameter(String parameter) throws UnsupportedEncodingException {
+        return URLEncoder.encode(parameter, "UTF-8");
     }
 
 	@Override

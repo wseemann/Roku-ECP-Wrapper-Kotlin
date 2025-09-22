@@ -18,7 +18,7 @@ object Main {
     @JvmStatic
     fun main(args: Array<String>) {
         try {
-            rokuDevice = RokuDevice.Companion.create(ROKU_DEVICE_IP_ADDRESS)
+            rokuDevice = RokuDevice.create(ROKU_DEVICE_IP_ADDRESS)
 
             testKeypress()
             testKeydown()

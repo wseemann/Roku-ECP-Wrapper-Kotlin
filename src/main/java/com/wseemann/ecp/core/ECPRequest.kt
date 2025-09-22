@@ -3,15 +3,10 @@ package com.wseemann.ecp.core
 import com.wseemann.ecp.api.ResponseCallback
 import com.wseemann.ecp.logging.Logger.debug
 import com.wseemann.ecp.parser.ECPResponseParser
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import org.jdom2.JDOMException
 import java.io.IOException
+import java.io.UnsupportedEncodingException
 
 internal abstract class ECPRequest<T>(private val url: String) {
 
@@ -21,6 +16,7 @@ internal abstract class ECPRequest<T>(private val url: String) {
 
     protected abstract fun getMethod(): String
 
+    @Throws(UnsupportedEncodingException::class)
     protected abstract fun getPath(): String
 
     protected abstract fun getParser(): ECPResponseParser<T>?
@@ -50,6 +46,8 @@ internal abstract class ECPRequest<T>(private val url: String) {
         } catch (ex: JDOMException) {
             throw IOException(ex)
         } catch (ex: IOException) {
+            throw IOException(ex)
+        } catch (ex: UnsupportedEncodingException) {
             throw IOException(ex)
         }
     }
