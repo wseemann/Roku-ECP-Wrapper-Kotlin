@@ -61,8 +61,8 @@ public final class DeviceParser extends ECPResponseParser<Device> {
         device.setNotificationsFirstUse(checkValue(rootNode.getChild("notifications-first-use")));
         device.setSupportsPrivateListening(checkValue(rootNode.getChild("supports-private-listening")));
         device.setHeadphonesConnected(checkValue(rootNode.getChild("headphones-connected")));
-        device.setIsTv(checkValue(rootNode.getChild("is-tv")));
-        device.setIsStick(checkValue(rootNode.getChild("is-stick")));
+        device.setTv(checkValue(rootNode.getChild("is-tv")));
+        device.setStick(checkValue(rootNode.getChild("is-stick")));
 
         return device;
 	}

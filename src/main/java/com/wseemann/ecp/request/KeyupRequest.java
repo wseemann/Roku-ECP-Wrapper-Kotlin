@@ -1,25 +1,17 @@
 package com.wseemann.ecp.request;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-
-import com.wseemann.ecp.core.ECPRequest;
 import com.wseemann.ecp.parser.ECPResponseParser;
 import org.jetbrains.annotations.NotNull;
 
-final public class KeyupRequest extends ECPRequest<Void> {
+final public class KeyupRequest extends KeyRequest {
 
-	private final String key;
-
-	public KeyupRequest(String url, String key) throws UnsupportedEncodingException {
-		super(url);
-		this.key = URLEncoder.encode(key, StandardCharsets.UTF_8);
+	public KeyupRequest(String url, String key) {
+		super(url, key);
 	}
 	
 	@Override
 	public @NotNull String getPath() {
-		return "/keyup/" + key;
+		return "/keyup/" + getKey();
 	}
 	
 	@Override
