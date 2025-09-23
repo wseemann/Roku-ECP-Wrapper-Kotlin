@@ -1,12 +1,10 @@
 package com.wseemann.ecp.parser;
 
-import java.io.IOException;
 import java.io.StringReader;
 
 import com.wseemann.ecp.model.Device;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 public final class DeviceParser extends ECPResponseParser<Device> {
@@ -18,7 +16,7 @@ public final class DeviceParser extends ECPResponseParser<Device> {
     }
 
 	@Override
-	public Device parse(byte [] body) throws IOException, JDOMException {
+	public Device parse(byte [] body) throws Exception {
 		Device device = new Device();
 
         if (body == null) {

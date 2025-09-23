@@ -6,7 +6,7 @@ import com.wseemann.ecp.model.Channel
 import com.wseemann.ecp.model.Device
 import java.io.ByteArrayInputStream
 import java.io.File
-import java.io.IOException
+import java.lang.Exception
 import javax.imageio.ImageIO
 
 object Main {
@@ -28,27 +28,27 @@ object Main {
             queryDeviceInfo()
             launchAppId()
             queryIcon()
-        } catch (e: IOException) {
-            e.printStackTrace()
+        } catch (ex: Exception) {
+            ex.printStackTrace()
         }
     }
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     private fun testKeypress() {
         rokuDevice.keyPressRequest(KeyPressKeyValues.INFO)
     }
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     private fun testKeydown() {
         rokuDevice.keyDownRequest(KeyPressKeyValues.INFO)
     }
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     private fun testKeyup() {
         rokuDevice.keyUpRequest(KeyPressKeyValues.INFO)
     }
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     private fun queryApps() {
         val channels: List<Channel> = rokuDevice.queryAppsRequest()
 
@@ -57,7 +57,7 @@ object Main {
         }
     }
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     private fun queryActiveApp() {
         val channels: List<Channel> = rokuDevice.queryActiveAppRequest()
 
@@ -66,19 +66,19 @@ object Main {
         }
     }
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     private fun queryDeviceInfo() {
         val device: Device = rokuDevice.queryDeviceInfo()
 
         println(device.country)
     }
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     private fun launchAppId() {
         rokuDevice.launchAppIdRequest("1457")
     }
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     private fun queryIcon() {
         val data: ByteArray = rokuDevice.queryIconRequest("1457")
 

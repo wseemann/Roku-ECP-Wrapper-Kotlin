@@ -1,6 +1,5 @@
 package com.wseemann.ecp.core;
 
-import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -15,7 +14,7 @@ class DiscoveryRequest extends Request {
 	}
 	
 	@Override
-    public Response send() throws IOException {
+    public Response send() throws Exception {
         URL url = new URL(this.url);
         	
         String deviceIpAddresses = scanForAllRokus(url);
@@ -25,7 +24,7 @@ class DiscoveryRequest extends Request {
         return response;
     }
 	
-	private String scanForRoku(URL url) throws IOException {
+	private String scanForRoku(URL url) throws Exception {
 		/* create byte arrays to hold our send and response data */
 		byte[] sendData;
 		byte[] receiveData = new byte[1024];
@@ -62,7 +61,7 @@ class DiscoveryRequest extends Request {
 		return response.split("location:")[1].split("\n")[0].split("http://")[1].split(":")[0].trim();
 	}
 
-	private String scanForAllRokus(URL url) throws IOException {
+	private String scanForAllRokus(URL url) throws Exception {
 		List<String> deviceList = new ArrayList<String>();
 
 		String address;

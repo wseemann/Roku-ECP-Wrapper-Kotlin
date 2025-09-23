@@ -4,8 +4,6 @@ import com.wseemann.ecp.api.ResponseCallback
 import com.wseemann.ecp.logging.Logger.debug
 import com.wseemann.ecp.parser.ECPResponseParser
 import kotlinx.coroutines.*
-import org.jdom2.JDOMException
-import java.io.IOException
 import java.io.UnsupportedEncodingException
 
 internal abstract class ECPRequest<T>(private val url: String) {
@@ -21,11 +19,11 @@ internal abstract class ECPRequest<T>(private val url: String) {
 
     protected abstract fun getParser(): ECPResponseParser<T>?
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     fun send(): ECPResponse<T>? {
-        val url = this.url + getPath()
-
         try {
+            val url = this.url + getPath()
+
             if (getMethod().equals(DISCOVERY, ignoreCase = true)) {
                 val request = DiscoveryRequest(url)
                 return ECPResponse(generateResponseData(request.send().data, getParser()))
@@ -43,12 +41,9 @@ internal abstract class ECPRequest<T>(private val url: String) {
                     return null
                 }
             }
-        } catch (ex: JDOMException) {
-            throw IOException(ex)
-        } catch (ex: IOException) {
-            throw IOException(ex)
-        } catch (ex: UnsupportedEncodingException) {
-            throw IOException(ex)
+        } catch (ex: Exception) {
+            debug("ECP request failed: ${ex.message}")
+            throw ex
         }
     }
 
@@ -60,7 +55,7 @@ internal abstract class ECPRequest<T>(private val url: String) {
                 withContext(Dispatchers.Default) {
                     callback.onSuccess(response?.responseData)
                 }
-            } catch (ex: IOException) {
+            } catch (ex: Exception) {
                 withContext(Dispatchers.Default) {
                     callback.onError(ex)
                 }
@@ -68,7 +63,7 @@ internal abstract class ECPRequest<T>(private val url: String) {
         }
     }
 
-    @Throws(IOException::class, JDOMException::class)
+    @Throws(Exception::class)
     private fun generateResponseData(body: ByteArray, parser: ECPResponseParser<T>?): T? {
         if (parser == null) {
             return null

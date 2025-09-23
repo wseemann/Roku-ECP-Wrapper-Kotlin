@@ -30,7 +30,7 @@ Install
 Add the following maven dependency to your project's `build.gradle` file:
 
     dependencies {
-        implementation 'com.github.wseemann:roku-ecp-wrapper-kotlin:1.2.0'
+        implementation 'com.github.wseemann:roku-ecp-wrapper-kotlin:1.5.0'
     }
 
 
@@ -70,7 +70,7 @@ License
 ```
 Roku ECP Wrapper: A Kotlin wrapper/client for the Roku External Control API.
 
-Copyright 2023 William Seemann
+Copyright 2025 William Seemann
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

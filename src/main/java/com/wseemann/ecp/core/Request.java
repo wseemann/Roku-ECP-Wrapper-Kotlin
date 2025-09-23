@@ -1,7 +1,5 @@
 package com.wseemann.ecp.core;
 
-import java.io.IOException;
-
 public abstract class Request {
 
 	protected final String url;
@@ -12,5 +10,5 @@ public abstract class Request {
 		this.body = body;
 	}
 	
-	public abstract Response send() throws IOException;	
+	public abstract Response send() throws Exception;
 }

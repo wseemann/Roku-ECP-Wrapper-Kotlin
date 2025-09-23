@@ -1,6 +1,5 @@
 package com.wseemann.ecp.parser;
 
-import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +7,12 @@ import java.util.List;
 import com.wseemann.ecp.model.Channel;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 public final class AppsParser extends ECPResponseParser<List<Channel>> {
 
 	@Override
-	public List<Channel> parse(byte [] body) throws IOException, JDOMException {
+	public List<Channel> parse(byte [] body) throws Exception {
 		List<Channel> channels = new ArrayList<>();
 
 		if (body == null) {
