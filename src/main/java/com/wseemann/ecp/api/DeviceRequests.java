@@ -1,6 +1,5 @@
 package com.wseemann.ecp.api;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import com.wseemann.ecp.request.DiscoveryRequest;
 
 public class DeviceRequests {
 
-	public static List<RokuDevice> discoverDevices() throws IOException {
+	public static List<RokuDevice> discoverDevices() throws Exception {
 		List<RokuDevice> rokuDevices = new ArrayList<>();
 
 		DiscoveryRequest request = new DiscoveryRequest("http://239.255.255.250:1900");

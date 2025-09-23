@@ -1,18 +1,16 @@
 package com.wseemann.ecp.parser;
 
-import java.io.IOException;
 import java.io.StringReader;
 
 import com.wseemann.ecp.model.Player;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 public final class PlayerParser extends ECPResponseParser<Player> {
 
     @Override
-    public Player parse(byte [] body) throws IOException, JDOMException {
+    public Player parse(byte [] body) throws Exception {
         Player player = new Player();
 
         if (body == null) {

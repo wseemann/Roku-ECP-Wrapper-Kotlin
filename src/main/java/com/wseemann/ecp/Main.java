@@ -5,12 +5,11 @@ import com.wseemann.ecp.api.RokuDevice;
 import com.wseemann.ecp.logging.Logger;
 import com.wseemann.ecp.model.Device;
 
-import java.io.IOException;
 import java.util.List;
 
 public class Main {
 
-	public static void main(String [] args) throws IOException {
+	public static void main(String [] args) throws Exception {
 		Logger.INSTANCE.setLogDebug(false);
 		Logger.INSTANCE.info("--- Roku ECP Wrapper ---");
 

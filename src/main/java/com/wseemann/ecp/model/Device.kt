@@ -1,6 +1,6 @@
 package com.wseemann.ecp.model
 
-data class Device(
+open class Device(
     var udn: String? = null,
     var serialNumber: String? = null,
     var deviceId: String? = null,

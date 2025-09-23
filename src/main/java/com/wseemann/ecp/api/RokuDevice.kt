@@ -5,50 +5,48 @@ import com.wseemann.ecp.core.SearchTypeValues
 import com.wseemann.ecp.model.Channel
 import com.wseemann.ecp.model.Device
 import com.wseemann.ecp.model.Player
-import com.wseemann.ecp.request.*
-import java.io.IOException
 
 interface RokuDevice : AsyncRokuDevice {
 
     fun getHost(): String
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     fun installRequest(appId: String)
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     fun keyPressRequest(keyPressKeyValue: KeyPressKeyValues)
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     fun keyPressRequest(literalCharacter: Char)
 
-    @Throws(IOException::class, InterruptedException::class)
+    @Throws(Exception::class)
     fun keyPressRequest(word: String)
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     fun keyDownRequest(keyPressKeyValue: KeyPressKeyValues)
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     fun keyUpRequest(keyPressKeyValue: KeyPressKeyValues)
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     fun launchAppIdRequest(appId: String)
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     fun queryAppsRequest(): List<Channel>
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     fun queryActiveAppRequest(): List<Channel>
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     fun queryDeviceInfo(): Device
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     fun queryIconRequest(appId: String): ByteArray
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     fun queryMediaPlayer(url: String): Player
 
-    @Throws(IOException::class)
+    @Throws(Exception::class)
     fun searchRequest(
             keyword: String,
             title: String,

@@ -3,14 +3,13 @@ package com.wseemann.ecp.parser;
 import com.wseemann.ecp.api.QueryRequests;
 import com.wseemann.ecp.model.Device;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public final class DeviceDiscoveryParser extends ECPResponseParser<List<Device>> {
 
 	@Override
-	public List<Device> parse(byte [] body) throws IOException {
+	public List<Device> parse(byte [] body) throws Exception {
 		List<Device> devices = new ArrayList<>();
 
 		if (body == null) {

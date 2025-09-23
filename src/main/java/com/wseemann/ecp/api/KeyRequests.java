@@ -1,7 +1,5 @@
 package com.wseemann.ecp.api;
 
-import java.io.IOException;
-
 import com.wseemann.ecp.core.KeyPressKeyValues;
 import com.wseemann.ecp.request.KeydownRequest;
 import com.wseemann.ecp.request.KeyPressRequest;
@@ -13,17 +11,17 @@ public class KeyRequests {
 		
 	}
 	
-	public static void keyPressRequest(String url, KeyPressKeyValues keyPressKeyValue) throws IOException {
+	public static void keyPressRequest(String url, KeyPressKeyValues keyPressKeyValue) throws Exception {
 		KeyPressRequest request = new KeyPressRequest(url, keyPressKeyValue.getValue());
 		request.send();
 	}
 	
-	public static void keyPressRequest(String url, char literalCharacter) throws IOException {
+	public static void keyPressRequest(String url, char literalCharacter) throws Exception {
 		KeyPressRequest request = new KeyPressRequest(url, KeyPressKeyValues.LIT_.getValue() + literalCharacter);
 		request.send();
 	}
 	
-	public static void keyPressRequest(String url, String word) throws IOException, InterruptedException {
+	public static void keyPressRequest(String url, String word) throws Exception {
 		for (int i = 0; i < word.length(); i++) {
 			KeyPressRequest request;
 			
@@ -38,12 +36,12 @@ public class KeyRequests {
 		}
 	}
 	
-	public static void keyDownRequest(String url, KeyPressKeyValues keyPressKeyValue) throws IOException {
+	public static void keyDownRequest(String url, KeyPressKeyValues keyPressKeyValue) throws Exception {
 		KeydownRequest request = new KeydownRequest(url, keyPressKeyValue.getValue());
 		request.send();
 	}
 	
-	public static void keyUpRequest(String url, KeyPressKeyValues keyPressKeyValue) throws IOException {
+	public static void keyUpRequest(String url, KeyPressKeyValues keyPressKeyValue) throws Exception {
 		KeyupRequest request = new KeyupRequest(url, keyPressKeyValue.getValue());
 		request.send();
 	}
